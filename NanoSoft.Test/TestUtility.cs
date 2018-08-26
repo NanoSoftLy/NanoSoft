@@ -41,7 +41,7 @@ namespace NanoSoft.Test
             var builder = new DbContextOptionsBuilder();
 
             builder = InMemoryDb
-                ? builder.UseInMemoryDatabase($"FaceAdsDb_{dbName}")
+                ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
                 : RegisterProvider(builder);
 
             return Initialize(builder.Options);

@@ -1,10 +1,9 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using NanoSoft;
 using System;
 using System.Runtime.CompilerServices;
 
-namespace FaceAds.Test
+namespace NanoSoft.Test
 {
     public abstract class TestUtility<TApplication, TUserInfo, TUnitOfWork, TDbContext> : IDisposable
         where TDbContext : DbContext

@@ -2,7 +2,7 @@
 
 namespace NanoSoft
 {
-    public struct Ability<TPermission>
+    public abstract class Ability<TPermission>
     {
         public Ability(TPermission permission)
         {

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NanoSoft
 {
-    public class Paginated<TItem>
+    public class Pagination<TItem>
     {
         public List<TItem> Data { get; set; } = new List<TItem>();
         public int CurrentPage { get; set; }

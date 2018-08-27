@@ -23,7 +23,7 @@ namespace NanoSoft
             return Response.Fail(this, state);
         }
 
-        public Response AddError(EntityValidationState entityValidationState, ResponseState state = ResponseState.BadRequest)
+        public Response AddError(EntityValidationState entityValidationState, ResponseState state = ResponseState.Unacceptable)
             => AddError(entityValidationState.PropertyName, entityValidationState.Message, state);
 
 
@@ -37,7 +37,7 @@ namespace NanoSoft
             return Response<TModel>.Fail(this, state);
         }
 
-        public Response<TModel> AddError<TModel>(EntityValidationState entityValidationState, ResponseState state = ResponseState.BadRequest)
+        public Response<TModel> AddError<TModel>(EntityValidationState entityValidationState, ResponseState state = ResponseState.Unacceptable)
             => AddError<TModel>(entityValidationState.PropertyName, entityValidationState.Message, state);
 
 

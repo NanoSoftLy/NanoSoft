@@ -9,10 +9,8 @@ namespace NanoSoft.Test
         where TDbContext : DbContext
     {
         public bool InMemoryDb { get; protected set; } = true;
-        public string ConnectionString { get; protected set; }
         private readonly string _dbName;
 
-        protected abstract TDbContext Initialize(DbContextOptions options);
         protected abstract TUnitOfWork Initialize(TDbContext context);
 
         public TestUtility([CallerMemberName] string dbName = null)
@@ -33,18 +31,7 @@ namespace NanoSoft.Test
                 NewDbContext(_dbName).Database.EnsureDeleted();
         }
 
-        public TDbContext NewDbContext([CallerMemberName] string dbName = null)
-        {
-            Check.NotEmpty(dbName, nameof(dbName));
-
-            var builder = new DbContextOptionsBuilder();
-
-            builder = InMemoryDb
-                ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
-                : builder.UseSqlServer(ConnectionString);
-
-            return Initialize(builder.Options);
-        }
+        public abstract TDbContext NewDbContext([CallerMemberName] string dbName = null);
 
         public TUnitOfWork NewUnitOfWork([CallerMemberName] string dbName = null)
         {

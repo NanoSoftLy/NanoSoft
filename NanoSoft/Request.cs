@@ -38,6 +38,19 @@ namespace NanoSoft
             return _response;
         }
 
+        public Task<bool> IsValidAsync(Func<TUserInfo, TDomain, bool> policy)
+        {
+            if (policy != null && (User == null || !policy(User, Result)))
+            {
+                _response = NanoSoft.Response.Fail(User == null
+                    ? ResponseState.Unauthorized
+                    : ResponseState.Forbidden);
+                return Task.FromResult(false);
+            }
+
+            return Task.FromResult(true);
+        }
+
         public async Task<bool> IsValidAsync(Func<TUserInfo, TDomain, bool> policy, Guid id)
         {
             if (id == default(Guid))

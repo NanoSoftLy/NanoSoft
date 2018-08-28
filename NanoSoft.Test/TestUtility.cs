@@ -12,7 +12,7 @@ namespace NanoSoft.Test
         private readonly string _dbName;
 
         protected abstract void Migrate(DbContext context);
-        protected abstract DbContextOptionsBuilder RegisterProvider(DbContextOptionsBuilder builder);
+        protected abstract DbContextOptionsBuilder RegisterProvider(DbContextOptionsBuilder builder, string dbName);
         protected abstract TDbContext Initialize(DbContextOptions options);
         protected abstract TUnitOfWork Initialize(TDbContext context);
 
@@ -43,7 +43,7 @@ namespace NanoSoft.Test
 
             builder = _inMemoryDb
                 ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
-                : RegisterProvider(builder);
+                : RegisterProvider(builder, dbName);
 
             return Initialize(builder.Options);
         }

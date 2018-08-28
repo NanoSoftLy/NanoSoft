@@ -8,30 +8,45 @@ namespace NanoSoft.Test
     public abstract class TestUtility<TApplication, TUserInfo, TUnitOfWork, TDbContext> : IDisposable
         where TDbContext : DbContext
     {
-        public bool InMemoryDb { get; protected set; } = true;
+        public bool _inMemoryDb;
         private readonly string _dbName;
 
+        protected abstract void Migrate(DbContext context);
+        protected abstract DbContextOptionsBuilder RegisterProvider(DbContextOptionsBuilder builder);
+        protected abstract TDbContext Initialize(DbContextOptions options);
         protected abstract TUnitOfWork Initialize(TDbContext context);
 
-        public TestUtility([CallerMemberName] string dbName = null)
+        public TestUtility(bool inMemoryDb, [CallerMemberName] string dbName = null)
         {
+            _inMemoryDb = inMemoryDb;
             _dbName = dbName;
 
-            if (InMemoryDb)
+            if (inMemoryDb)
                 return;
 
             var context = NewDbContext(dbName);
             context.Database.EnsureDeleted();
-            context.Database.Migrate();
+            Migrate(context);
         }
 
         public void Dispose()
         {
-            if (!InMemoryDb)
+            if (!_inMemoryDb)
                 NewDbContext(_dbName).Database.EnsureDeleted();
         }
 
-        public abstract TDbContext NewDbContext([CallerMemberName] string dbName = null);
+        public TDbContext NewDbContext([CallerMemberName] string dbName = null)
+        {
+            Check.NotEmpty(dbName, nameof(dbName));
+
+            var builder = new DbContextOptionsBuilder();
+
+            builder = _inMemoryDb
+                ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
+                : RegisterProvider(builder);
+
+            return Initialize(builder.Options);
+        }
 
         public TUnitOfWork NewUnitOfWork([CallerMemberName] string dbName = null)
         {

@@ -8,11 +8,10 @@ namespace NanoSoft.Test
     public abstract class TestUtility<TApplication, TUserInfo, TUnitOfWork, TDbContext> : IDisposable
         where TDbContext : DbContext
     {
-        public static bool InMemoryDb = true;
+        public bool InMemoryDb { get; protected set; } = true;
+        public string ConnectionString { get; protected set; }
         private readonly string _dbName;
 
-        protected abstract void Migrate(DbContext context);
-        protected abstract DbContextOptionsBuilder RegisterProvider(DbContextOptionsBuilder builder);
         protected abstract TDbContext Initialize(DbContextOptions options);
         protected abstract TUnitOfWork Initialize(TDbContext context);
 
@@ -25,7 +24,7 @@ namespace NanoSoft.Test
 
             var context = NewDbContext(dbName);
             context.Database.EnsureDeleted();
-            Migrate(context);
+            context.Database.Migrate();
         }
 
         public void Dispose()
@@ -42,7 +41,7 @@ namespace NanoSoft.Test
 
             builder = InMemoryDb
                 ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
-                : RegisterProvider(builder);
+                : builder.UseSqlServer(ConnectionString);
 
             return Initialize(builder.Options);
         }

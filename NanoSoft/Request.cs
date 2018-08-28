@@ -38,9 +38,9 @@ namespace NanoSoft
             return _response;
         }
 
-        public Task<bool> IsValidAsync(Func<TUserInfo, TDomain, bool> policy)
+        public Task<bool> IsValidAsync(Func<TUserInfo, bool> policy)
         {
-            if (policy != null && (User == null || !policy(User, Result)))
+            if (policy != null && (User == null || !policy(User)))
             {
                 _response = NanoSoft.Response.Fail(User == null
                     ? ResponseState.Unauthorized

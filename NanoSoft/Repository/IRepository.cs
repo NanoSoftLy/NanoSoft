@@ -11,18 +11,18 @@ namespace NanoSoft.Repository
     {
         Task AddAsync([NotNull] TDomain domain);
         Task AddRangeAsync([NotNull] IEnumerable<TDomain> domains);
-        
+
         [ItemCanBeNull]
         [MustUseReturnValue]
         Task<TDomain> FindAsync([NotNull] object id, bool includeRelated = false);
 
         [ItemNotNull]
         [MustUseReturnValue]
-        Task<IList<TDomain>> GetAllAsync();
+        Task<List<TDomain>> GetAllAsync();
 
         [ItemNotNull]
         [MustUseReturnValue]
-        Task<IList<TResult>> GetAllAsync<TResult>(Expression<Func<TDomain, TResult>> target);
+        Task<List<TResult>> GetAllAsync<TResult>(Expression<Func<TDomain, TResult>> target);
 
         Task RemoveAsync([NotNull] TDomain domain);
         Task RemoveRangeAsync([NotNull] IEnumerable<TDomain> domains);

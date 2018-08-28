@@ -23,9 +23,9 @@ namespace NanoSoft.EntityFramework
 
         public virtual async Task<TDomain> FindAsync(object id, bool includeRelated = false) => await _context.FindAsync<TDomain>(id);
 
-        public virtual async Task<IList<TDomain>> GetAllAsync() => await _context.Set<TDomain>().ToListAsync();
+        public virtual async Task<List<TDomain>> GetAllAsync() => await _context.Set<TDomain>().ToListAsync();
 
-        public virtual async Task<IList<TResult>> GetAllAsync<TResult>(Expression<Func<TDomain, TResult>> target)
+        public virtual async Task<List<TResult>> GetAllAsync<TResult>(Expression<Func<TDomain, TResult>> target)
             => await _context.Set<TDomain>().Select(target).ToListAsync();
 
         public virtual async Task RemoveAsync(TDomain domain)

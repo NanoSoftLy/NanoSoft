@@ -2,6 +2,8 @@
 using NanoSoft.Extensions;
 using NanoSoft.Resources;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace NanoSoft
 {
@@ -42,6 +44,18 @@ namespace NanoSoft
         {
             if (number == 0)
                 throw new ArgumentOutOfRangeException(parameterName, SharedMessages.Check_NotZero);
+        }
+
+        public static void NotDefault<T>(T obj, [NotNull][InvokerParameterName] string parameterName)
+        {
+            if (obj.Equals(default(T)))
+                throw new ArgumentException(SharedMessages.Check_NotDefault, parameterName);
+        }
+
+        public static void NotEmpty<T>(IEnumerable<T> enumerable, [NotNull][InvokerParameterName] string parameterName)
+        {
+            if (enumerable.Any())
+                throw new ArgumentException(SharedMessages.Check_CollectionNotEmpty, parameterName);
         }
     }
 }

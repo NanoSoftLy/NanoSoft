@@ -228,4 +228,10 @@
   <data name="IsNumeric" xml:space="preserve">
     <value>يجب أن يحتوي {0} على أرقام فقط .</value>
   </data>
+  <data name="Check_CollectionNotEmpty" xml:space="preserve">
+    <value>Collection cannot be empty</value>
+  </data>
+  <data name="Check_NotDefault" xml:space="preserve">
+    <value>Default value is not valid</value>
+  </data>
 </root>

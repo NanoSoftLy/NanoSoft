@@ -170,6 +170,15 @@ namespace NanoSoft.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لقد قمت بإدخال مدى توقيت خاطئ..
+        /// </summary>
+        public static string InvalidTimeRange {
+            get {
+                return ResourceManager.GetString("InvalidTimeRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يجب إدخال قيمة صحيحة لحقل {0} قبل المتابعة ..
         /// </summary>
         public static string InvalidValue {
@@ -265,6 +274,15 @@ namespace NanoSoft.Resources {
         public static string PasswordNotMatch {
             get {
                 return ResourceManager.GetString("PasswordNotMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يجب إدخال تاريخ قديم في حقل {0} قبل المتابعة..
+        /// </summary>
+        public static string PastDateRequired {
+            get {
+                return ResourceManager.GetString("PastDateRequired", resourceCulture);
             }
         }
         

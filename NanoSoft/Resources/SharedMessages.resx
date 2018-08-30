@@ -234,4 +234,10 @@
   <data name="Check_NotDefault" xml:space="preserve">
     <value>Default value is not valid</value>
   </data>
+  <data name="InvalidTimeRange" xml:space="preserve">
+    <value>لقد قمت بإدخال مدى توقيت خاطئ.</value>
+  </data>
+  <data name="PastDateRequired" xml:space="preserve">
+    <value>يجب إدخال تاريخ قديم في حقل {0} قبل المتابعة.</value>
+  </data>
 </root>

@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using NanoSoft.Resources;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace NanoSoft.Attributes
@@ -18,6 +19,12 @@ namespace NanoSoft.Attributes
 
             if (string.IsNullOrWhiteSpace(stringValue))
                 return new ValidationResult(errorMessage);
+
+            if (value is Guid guid)
+                return guid == default(Guid)
+                    ? new ValidationResult(errorMessage)
+                    : ValidationResult.Success;
+
 
             var i = (int)value;
 

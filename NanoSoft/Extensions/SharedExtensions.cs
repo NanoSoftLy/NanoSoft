@@ -176,5 +176,25 @@ namespace NanoSoft.Extensions
             return value;
         }
 
+
+        public static T CopyFrom<T>(this T obj1, T obj2)
+        {
+            foreach (var property in typeof(T).GetRuntimeProperties())
+            {
+                obj1.SetValue(property.Name, property.GetValue(obj2));
+            }
+
+            return obj1;
+        }
+
+        public static T CopyTo<T>(this T obj1, T obj2)
+        {
+            foreach (var property in typeof(T).GetRuntimeProperties())
+            {
+                obj2.SetValue(property.Name, property.GetValue(obj1));
+            }
+
+            return obj2;
+        }
     }
 }

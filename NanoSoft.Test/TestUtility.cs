@@ -1,7 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Runtime.CompilerServices;
 
 namespace NanoSoft.Test
 {
@@ -16,15 +15,15 @@ namespace NanoSoft.Test
         protected abstract TDbContext Initialize(DbContextOptions options);
         protected abstract TUnitOfWork Initialize(TDbContext context);
 
-        public TestUtility(bool inMemoryDb, [CallerMemberName] string dbName = null)
+        public TestUtility(bool inMemoryDb)
         {
             _inMemoryDb = inMemoryDb;
-            _dbName = dbName;
+            _dbName = Guid.NewGuid().ToString();
 
             if (inMemoryDb)
                 return;
 
-            var context = NewDbContext(dbName);
+            var context = NewDbContext();
             context.Database.EnsureDeleted();
             Migrate(context);
         }
@@ -32,29 +31,27 @@ namespace NanoSoft.Test
         public void Dispose()
         {
             if (!_inMemoryDb)
-                NewDbContext(_dbName).Database.EnsureDeleted();
+                NewDbContext().Database.EnsureDeleted();
         }
 
-        public TDbContext NewDbContext([CallerMemberName] string dbName = null)
+        public TDbContext NewDbContext()
         {
-            Check.NotEmpty(dbName, nameof(dbName));
-
             var builder = new DbContextOptionsBuilder();
 
             builder = _inMemoryDb
-                ? builder.UseInMemoryDatabase($"NanoSoft_{dbName}")
-                : RegisterProvider(builder, dbName);
+                ? builder.UseInMemoryDatabase($"NanoSoft_{_dbName}")
+                : RegisterProvider(builder, _dbName);
 
             return Initialize(builder.Options);
         }
 
-        public TUnitOfWork NewUnitOfWork([CallerMemberName] string dbName = null)
+        public TUnitOfWork NewUnitOfWork()
         {
-            var context = NewDbContext(dbName);
+            var context = NewDbContext();
 
             return Initialize(context);
         }
 
-        protected abstract TApplication NewApp(TUserInfo userInfo, [CallerMemberName] string dbName = null);
+        protected abstract TApplication NewApp(TUserInfo userInfo);
     }
 }

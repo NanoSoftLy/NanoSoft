@@ -22,6 +22,31 @@ namespace NanoSoft
         public static Response Fail(IValidator validator, ResponseState state = ResponseState.BadRequest)
             => new Response(validator.Errors, state);
 
+
+        public static Response<TModel> Success<TModel>(TModel model) => new Response<TModel>(model, Success(null));
+        public static Response<TModel> Success<TModel>(TModel model, string message) => new Response<TModel>(model, Success(message));
+
+        public static Response<TModel> SuccessCreate<TModel>(TModel model) => new Response<TModel>(model, SuccessCreate());
+
+        public static Response<TModel> SuccessEdit<TModel>(TModel model) => new Response<TModel>(model, SuccessEdit());
+
+        public static Response<TModel> SuccessDelete<TModel>(TModel model)
+            => new Response<TModel>(model, SuccessDelete());
+
+        public static Response<TModel> Fail<TModel>(string message)
+            => new Response<TModel>(default(TModel), Fail(message));
+
+        public static Response<TModel> Fail<TModel>(ResponseState state)
+            => new Response<TModel>(default(TModel), Fail(state));
+
+        public static Response<TModel> Fail<TModel>(ResponseState state, string message)
+            => new Response<TModel>(default(TModel), Fail(state, message));
+
+        public static Response<TModel> Fail<TModel>(IValidator validator, ResponseState state = ResponseState.BadRequest)
+            => new Response<TModel>(default(TModel), Fail(validator, state));
+
+
+
         private Response(ResponseState state, string message)
         {
             Errors = new Dictionary<string, List<string>>();
@@ -51,29 +76,6 @@ namespace NanoSoft
 
     public struct Response<TModel>
     {
-        public static Response<TModel> Success(TModel model) => new Response<TModel>(model, Response.Success(null));
-        public static Response<TModel> Success(TModel model, string message) => new Response<TModel>(model, Response.Success(message));
-
-        public static Response<TModel> SuccessCreate(TModel model) => new Response<TModel>(model, Response.SuccessCreate());
-
-        public static Response<TModel> SuccessEdit(TModel model) => new Response<TModel>(model, Response.SuccessEdit());
-
-        public static Response<TModel> SuccessDelete(TModel model)
-            => new Response<TModel>(model, Response.SuccessDelete());
-
-        public static Response<TModel> Fail(string message)
-            => new Response<TModel>(default(TModel), Response.Fail(message));
-
-        public static Response<TModel> Fail(ResponseState state)
-            => new Response<TModel>(default(TModel), Response.Fail(state));
-
-        public static Response<TModel> Fail(ResponseState state, string message)
-            => new Response<TModel>(default(TModel), Response.Fail(state, message));
-
-        public static Response<TModel> Fail(IValidator validator, ResponseState state = ResponseState.BadRequest)
-            => new Response<TModel>(default(TModel), Response.Fail(validator, state));
-
-
         public Response(Response response)
         {
             InnerResponse = response;

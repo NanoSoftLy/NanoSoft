@@ -34,7 +34,7 @@ namespace NanoSoft
         public Response<TModel> AddError<TModel>(string name, string message, ResponseState state = ResponseState.BadRequest)
         {
             TryAddError(name, message);
-            return Response<TModel>.Fail(this, state);
+            return Response.Fail<TModel>(this, state);
         }
 
         public Response<TModel> AddError<TModel>(EntityValidationState entityValidationState, ResponseState state = ResponseState.Unacceptable)

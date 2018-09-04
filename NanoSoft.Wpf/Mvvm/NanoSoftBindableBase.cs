@@ -1,22 +1,19 @@
 ﻿using JetBrains.Annotations;
+using NanoSoft.Wpf.EventArgs;
 using NanoSoft.Wpf.Services;
 using System;
-using System.Threading.Tasks;
 
 namespace NanoSoft.Wpf.Mvvm
 {
     [PublicAPI]
     public abstract class NanoSoftBindableBase<TApp> : ValidatableBindableBase
     {
-        private readonly IAppServices<TApp> _services;
+        public IAppServices<TApp> Services { get; }
+
         protected NanoSoftBindableBase(IAppServices<TApp> services)
         {
-            _services = services;
+            Services = services;
         }
-
-        protected virtual Task<TApp> InitializeAsync() => _services.InitializeAsync();
-        protected virtual void Alert(string message) => _services.Alert(message);
-        protected virtual Task<bool> ConfirmAsync(string message) => _services.ConfirmAsync(message);
 
         protected virtual void Read(IResponse response)
         {
@@ -32,7 +29,7 @@ namespace NanoSoft.Wpf.Mvvm
                     break;
 
                 case ResponseState.Unauthorized:
-                    _services.Logout();
+                    Services.Logout();
                     break;
 
                 case ResponseState.NotFound:
@@ -44,7 +41,7 @@ namespace NanoSoft.Wpf.Mvvm
                     throw new ArgumentOutOfRangeException(nameof(response.State));
             }
 
-            _services.Alert(response.Message);
+            Services.Alert(response.Message);
 
             ResponseRead(this, new ResponseEventArgs(response));
         }

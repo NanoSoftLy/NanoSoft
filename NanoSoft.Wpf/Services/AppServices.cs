@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using NanoSoft.Wpf.EventArgs;
 using NanoSoft.Wpf.Resources;
 using System;
 using System.Collections;
@@ -93,5 +94,15 @@ namespace NanoSoft.Wpf.Services
             dictionary["companyInfo"] = properties.CompanyInfo;
             dictionary["expire"] = DateTime.UtcNow.AddMinutes(5);
         }
+
+
+        public void HandleException(Exception e)
+        {
+            Alert(e.Message);
+            Console.WriteLine(e);
+            ExceptionThrown(this, new ExceptionEventArgs(e));
+        }
+
+        public event EventHandler<ExceptionEventArgs> ExceptionThrown = delegate { };
     }
 }

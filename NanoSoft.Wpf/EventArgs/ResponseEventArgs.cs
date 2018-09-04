@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace NanoSoft.Wpf.Mvvm
+﻿namespace NanoSoft.Wpf.EventArgs
 {
-    public class ResponseEventArgs : EventArgs
+    public class ResponseEventArgs : System.EventArgs
     {
         public ResponseEventArgs(IResponse response)
         {

@@ -1,9 +1,11 @@
-﻿using NanoSoft.Resources;
+﻿using NanoSoft.Extensions;
+using NanoSoft.Resources;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NanoSoft
 {
-    public struct Response
+    public struct Response : IResponse
     {
         public static Response Success(string message) => new Response(ResponseState.Valid, message);
 
@@ -50,20 +52,34 @@ namespace NanoSoft
         private Response(ResponseState state, string message)
         {
             Errors = new Dictionary<string, List<string>>();
-            Message = message;
+            _message = message;
             _state = state;
         }
 
         private Response(Dictionary<string, List<string>> errors, ResponseState state)
         {
             Errors = errors;
-            Message = null;
+            _message = null;
             _state = state;
         }
 
-        public string Message { get; private set; }
+        private string _message;
+        public string Message
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_message))
+                    return _message;
+
+                var errors = string.Join("\n", Errors.SelectMany(e => e.Value) ?? new List<string>());
+
+                return string.IsNullOrWhiteSpace(errors) ? _state.DisplayName() : errors;
+            }
+            private set => _message = value;
+        }
         public bool IsValid => State == ResponseState.Valid;
         private ResponseState _state;
+
         public ResponseState State
         {
             get => _state == ResponseState.Valid && Errors.Keys.Count > 0
@@ -74,7 +90,7 @@ namespace NanoSoft
         public Dictionary<string, List<string>> Errors { get; private set; }
     }
 
-    public struct Response<TModel>
+    public struct Response<TModel> : IResponse
     {
         public Response(Response response)
         {

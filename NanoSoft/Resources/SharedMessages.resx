@@ -207,22 +207,22 @@
   <data name="MinMaxLength" xml:space="preserve">
     <value>لا يمكنك إدخال أقل من {0} حرفاً أو أكثر من {1} في حقل {2} .</value>
   </data>
-  <data name="RequestState_BadRequest" xml:space="preserve">
-    <value>يوجد خطأ في الإرسال .</value>
-  </data>
-  <data name="RequestState_Empty" xml:space="preserve">
-    <value>لا توجد أي نتائج .</value>
-  </data>
-  <data name="RequestState_Invalid" xml:space="preserve">
+  <data name="ResponseState_BadRequest" xml:space="preserve">
     <value>يوجد خطأ في الإدخال .</value>
   </data>
-  <data name="RequestState_NoPermission" xml:space="preserve">
-    <value>ليست لديك الصلاحية للمتابعة .</value>
+  <data name="ResponseState_Empty" xml:space="preserve">
+    <value>لا توجد أي نتائج .</value>
   </data>
-  <data name="RequestState_NotAvailable" xml:space="preserve">
+  <data name="ResponseState_Unacceptable" xml:space="preserve">
+    <value>هذه العملية غير مسموحة .</value>
+  </data>
+  <data name="ResponseState_Unauthorized" xml:space="preserve">
+    <value>يجب تسجيل الدخول .</value>
+  </data>
+  <data name="ResponseState_Unavailable" xml:space="preserve">
     <value>الشبكة غير متاحة .</value>
   </data>
-  <data name="RequestState_NotFound" xml:space="preserve">
+  <data name="ResponseState_NotFound" xml:space="preserve">
     <value>لم يتم العثور على أي نتائج .</value>
   </data>
   <data name="IsNumeric" xml:space="preserve">
@@ -239,5 +239,11 @@
   </data>
   <data name="PastDateRequired" xml:space="preserve">
     <value>يجب إدخال تاريخ قديم في حقل {0} قبل المتابعة.</value>
+  </data>
+  <data name="ResponseState_Forbidden" xml:space="preserve">
+    <value>ليست لديك الصلاحية للمتابعة .</value>
+  </data>
+  <data name="ResponseState_Valid" xml:space="preserve">
+    <value>العملية ناجحة .</value>
   </data>
 </root>

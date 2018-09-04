@@ -287,56 +287,74 @@ namespace NanoSoft.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to يوجد خطأ في الإرسال ..
+        ///   Looks up a localized string similar to يوجد خطأ في الإدخال ..
         /// </summary>
-        public static string RequestState_BadRequest {
+        public static string ResponseState_BadRequest {
             get {
-                return ResourceManager.GetString("RequestState_BadRequest", resourceCulture);
+                return ResourceManager.GetString("ResponseState_BadRequest", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لا توجد أي نتائج ..
         /// </summary>
-        public static string RequestState_Empty {
+        public static string ResponseState_Empty {
             get {
-                return ResourceManager.GetString("RequestState_Empty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to يوجد خطأ في الإدخال ..
-        /// </summary>
-        public static string RequestState_Invalid {
-            get {
-                return ResourceManager.GetString("RequestState_Invalid", resourceCulture);
+                return ResourceManager.GetString("ResponseState_Empty", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to ليست لديك الصلاحية للمتابعة ..
         /// </summary>
-        public static string RequestState_NoPermission {
+        public static string ResponseState_Forbidden {
             get {
-                return ResourceManager.GetString("RequestState_NoPermission", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to الشبكة غير متاحة ..
-        /// </summary>
-        public static string RequestState_NotAvailable {
-            get {
-                return ResourceManager.GetString("RequestState_NotAvailable", resourceCulture);
+                return ResourceManager.GetString("ResponseState_Forbidden", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to لم يتم العثور على أي نتائج ..
         /// </summary>
-        public static string RequestState_NotFound {
+        public static string ResponseState_NotFound {
             get {
-                return ResourceManager.GetString("RequestState_NotFound", resourceCulture);
+                return ResourceManager.GetString("ResponseState_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هذه العملية غير مسموحة ..
+        /// </summary>
+        public static string ResponseState_Unacceptable {
+            get {
+                return ResourceManager.GetString("ResponseState_Unacceptable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يجب تسجيل الدخول ..
+        /// </summary>
+        public static string ResponseState_Unauthorized {
+            get {
+                return ResourceManager.GetString("ResponseState_Unauthorized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الشبكة غير متاحة ..
+        /// </summary>
+        public static string ResponseState_Unavailable {
+            get {
+                return ResourceManager.GetString("ResponseState_Unavailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to العملية ناجحة ..
+        /// </summary>
+        public static string ResponseState_Valid {
+            get {
+                return ResourceManager.GetString("ResponseState_Valid", resourceCulture);
             }
         }
         

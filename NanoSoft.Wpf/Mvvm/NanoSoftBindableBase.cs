@@ -45,6 +45,10 @@ namespace NanoSoft.Wpf.Mvvm
             }
 
             _services.Alert(response.Message);
+
+            ResponseRead(this, new ResponseEventArgs(response));
         }
+
+        public event EventHandler<ResponseEventArgs> ResponseRead = delegate { };
     }
 }

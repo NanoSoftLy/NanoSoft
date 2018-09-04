@@ -14,7 +14,7 @@ namespace NanoSoft.Wpf.Mvvm
             _services = services;
         }
 
-        protected virtual TApp InitializeApp() => _services.Initialize();
+        protected virtual Task<TApp> InitializeAsync() => _services.InitializeAsync();
         protected virtual void Alert(string message) => _services.Alert(message);
         protected virtual Task<bool> ConfirmAsync(string message) => _services.ConfirmAsync(message);
 

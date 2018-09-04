@@ -1,6 +1,8 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using NanoSoft.Wpf.Resources;
+using System;
+using System.Collections;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -56,5 +58,40 @@ namespace NanoSoft.Wpf.Services
         }
 
         public abstract void Logout();
+
+        protected virtual StoredProperties<TUser, TSettings, TCompanyInfo> GetStoredProperties<TUser, TSettings, TCompanyInfo>
+            (IDictionary dictionary)
+            where TUser : class
+            where TSettings : class
+            where TCompanyInfo : class
+        {
+            var storedUser = dictionary["user"] as TUser;
+            var storedSettings = dictionary["settings"] as TSettings;
+            var storedCompanyInfo = dictionary["info"] as TCompanyInfo;
+            var expire = dictionary["expire"] as DateTime?;
+
+            if (storedUser == null
+                || storedSettings == null
+                || storedCompanyInfo == null
+                || (expire == null
+                || expire >= DateTime.UtcNow))
+                return null;
+
+            return new StoredProperties<TUser, TSettings, TCompanyInfo>()
+            {
+                CompanyInfo = storedCompanyInfo,
+                Settings = storedSettings,
+                User = storedUser
+            };
+        }
+
+
+        protected virtual void StoreProperties<TUser, TSettings, TCompanyInfo>(StoredProperties<TUser, TSettings, TCompanyInfo> properties, IDictionary dictionary)
+        {
+            dictionary["user"] = properties.User;
+            dictionary["settings"] = properties.Settings;
+            dictionary["companyInfo"] = properties.CompanyInfo;
+            dictionary["expire"] = DateTime.UtcNow.AddMinutes(5);
+        }
     }
 }

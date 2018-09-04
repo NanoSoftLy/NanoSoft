@@ -9,8 +9,8 @@ namespace NanoSoft.Wpf.Services
         void Logout();
     }
 
-    public interface IAppServices<out TApp> : IAppServices
+    public interface IAppServices<TApp> : IAppServices
     {
-        TApp Initialize();
+        Task<TApp> InitializeAsync();
     }
 }

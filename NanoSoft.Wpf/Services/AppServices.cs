@@ -17,7 +17,7 @@ namespace NanoSoft.Wpf.Services
             _window = window;
         }
 
-        public abstract TApp Initialize();
+        public abstract Task<TApp> InitializeAsync();
 
         public virtual void Alert(string message)
         {

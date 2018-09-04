@@ -96,12 +96,14 @@ namespace NanoSoft.Wpf.Services
         }
 
 
-        public void HandleException(Exception e)
+        public virtual void HandleException(Exception e)
         {
             Alert(e.Message);
             Console.WriteLine(e);
-            ExceptionThrown(this, new ExceptionEventArgs(e));
+            OnExceptionThrown(e);
         }
+
+        protected void OnExceptionThrown(Exception e) => ExceptionThrown(this, new ExceptionEventArgs(e));
 
         public event EventHandler<ExceptionEventArgs> ExceptionThrown = delegate { };
     }

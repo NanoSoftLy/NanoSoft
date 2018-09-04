@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NanoSoft.Wpf.EventArgs;
+using System;
 using System.Threading.Tasks;
 
 namespace NanoSoft.Wpf.Services
@@ -9,6 +10,7 @@ namespace NanoSoft.Wpf.Services
         Task<bool> ConfirmAsync(string message);
         void Logout();
         void HandleException(Exception e);
+        event EventHandler<ExceptionEventArgs> ExceptionThrown;
     }
 
     public interface IAppServices<TApp> : IAppServices

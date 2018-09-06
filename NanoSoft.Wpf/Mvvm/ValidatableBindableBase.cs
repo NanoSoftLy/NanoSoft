@@ -23,10 +23,16 @@ namespace NanoSoft.Wpf.Mvvm
         public void ClearErrors()
         {
             foreach (var error in _errors)
+            {
+                error.Value.Clear();
                 RaiseErrorChanged(error.Key);
+            }
 
             foreach (var error in _addedErrors)
+            {
+                error.Value.Clear();
                 RaiseErrorChanged(error.Key);
+            }
 
             _errors.Clear();
             _addedErrors.Clear();

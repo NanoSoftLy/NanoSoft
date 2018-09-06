@@ -89,6 +89,15 @@ namespace NanoSoft.Wpf.Mvvm
 
         #endregion
 
+        private T Convert(object parameter)
+        {
+            if (parameter is T newType)
+                return newType;
+
+            Console.WriteLine($"parameter of type {parameter.GetType().Name} is not of type {typeof(T).Name}, attempt to convert it ...");
+            return (T)System.Convert.ChangeType(parameter, typeof(T));
+        }
+
         #region ICommand Members
 
         ///<summary>
@@ -100,7 +109,7 @@ namespace NanoSoft.Wpf.Mvvm
         ///</returns>
         public bool CanExecute(object parameter)
         {
-            return _canExecute?.Invoke((T)parameter) ?? true;
+            return _canExecute?.Invoke(Convert(parameter)) ?? true;
         }
 
         ///<summary>
@@ -120,14 +129,14 @@ namespace NanoSoft.Wpf.Mvvm
         {
             if (_executeAsync != null)
             {
-                await _executeAsync((T)parameter);
+                await _executeAsync(Convert(parameter));
                 return;
             }
 
-            _execute((T)parameter);
+            _execute(Convert(parameter));
         }
 
-        public Task ExecuteAsync(object parameter) => _executeAsync((T)parameter);
+        public Task ExecuteAsync(object parameter) => _executeAsync(Convert(parameter));
         #endregion
     }
 

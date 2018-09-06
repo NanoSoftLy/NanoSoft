@@ -15,7 +15,7 @@ namespace NanoSoft.Wpf.Mvvm
             Services = services;
         }
 
-        protected virtual void Read(IResponse response)
+        protected virtual void Show(IResponse response)
         {
             switch (response.State)
             {

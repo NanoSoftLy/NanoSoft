@@ -3,12 +3,65 @@ using System.Linq;
 
 namespace NanoSoft
 {
-    public class Paginated<TItem>
+    public struct Paginated<TItem>
     {
-        public List<TItem> Data { get; set; } = new List<TItem>();
-        public int CurrentPage { get; set; }
-        public int PageSize { get; set; }
-        public int LastPage { get; set; }
+        public Paginated(List<TItem> data, int current, int size, int total)
+        {
+            Check.NotNull(data, nameof(data));
+            Check.ZeroOrMore(current, nameof(current));
+            Check.ZeroOrMore(size, nameof(size));
+            Check.ZeroOrMore(total, nameof(total));
+
+            Data = data;
+            CurrentPage = current;
+            PageSize = size;
+            Total = total;
+        }
+
+        public List<TItem> Data { get; }
+        public int CurrentPage { get; }
+        public int PageSize { get; }
+        public int Total { get; }
+
+        public int ShowingFrom
+        {
+            get
+            {
+                if (CurrentPage == 0)
+                    return 0;
+
+                return (CurrentPage - 1) * PageSize + 1;
+            }
+        }
+
+        public int ShowingTo
+        {
+            get
+            {
+                if (CurrentPage == 0)
+                    return 0;
+
+                if (CurrentPage == LastPage)
+                    return Total;
+
+                return CurrentPage * PageSize;
+            }
+        }
+
+
+        public int LastPage
+        {
+            get
+            {
+                if (PageSize == 0)
+                    return 0;
+
+                var result = Total / PageSize;
+
+                return (Total % PageSize) > 0 ? result + 1 : result;
+            }
+        }
+
         public IEnumerable<int> Pages
         {
             get
@@ -17,7 +70,8 @@ namespace NanoSoft
                     .Concat(Enumerable.Range(CurrentPage - 2, 5))
                     .Concat(new[] { LastPage - 1, LastPage });
 
-                return pages.Where(n => n >= 1 && n <= LastPage).Distinct();
+                var lastPage = LastPage;
+                return pages.Where(n => n >= 1 && n <= lastPage).Distinct();
             }
         }
     }

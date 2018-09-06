@@ -170,6 +170,15 @@ namespace NanoSoft.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يجب إدخال توقيت صحيح في حقل {0} قبل المتابعة..
+        /// </summary>
+        public static string InvalidTime {
+            get {
+                return ResourceManager.GetString("InvalidTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to لقد قمت بإدخال مدى توقيت خاطئ..
         /// </summary>
         public static string InvalidTimeRange {

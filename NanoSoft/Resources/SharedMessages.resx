@@ -246,4 +246,7 @@
   <data name="ResponseState_Valid" xml:space="preserve">
     <value>العملية ناجحة .</value>
   </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>يجب إدخال توقيت صحيح في حقل {0} قبل المتابعة.</value>
+  </data>
 </root>

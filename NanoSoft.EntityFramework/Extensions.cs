@@ -8,29 +8,30 @@ namespace NanoSoft.EntityFramework
 {
     public static class Extensions
     {
-        public static async Task<Paginated<TSource>> PaginateAsync<TSource>(this IQueryable<TSource> query, int size, int current)
+        public static async Task<Paginated<TSource>> PaginateAsync<TSource>(this IQueryable<TSource> query, int size, int current, StartFrom startFrom = StartFrom.FirstPage)
         {
             var total = await query.CountAsync();
 
-            var skippedPages = current - 1;
+            var skipped = CalculateSkipped(total, size, current, startFrom);
 
-            var result = await query.Skip(skippedPages * size)
+            var result = await query.Skip(skipped)
                 .Take(size)
                 .ToListAsync();
 
             return new Paginated<TSource>(result, current, size, total);
         }
 
-        public static Task<Paginated<TSource>> PaginateAsync<TSource>(this IQueryable<TSource> query, IPaginationRequest request) => PaginateAsync(query, request.PageSize, request.CurrentPage);
+        public static Task<Paginated<TSource>> PaginateAsync<TSource>(this IQueryable<TSource> query, IPaginationRequest request, StartFrom startFrom = StartFrom.FirstPage)
+            => PaginateAsync(query, request.PageSize, request.CurrentPage, startFrom);
 
 
-        public static async Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target)
+        public static async Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
         {
             var total = await query.CountAsync();
 
-            var skippedPages = current - 1;
+            var skipped = CalculateSkipped(total, size, current, startFrom);
 
-            var result = await query.Skip(skippedPages * size)
+            var result = await query.Skip(skipped)
                 .Take(size)
                 .Select(target)
                 .ToListAsync();
@@ -38,34 +39,35 @@ namespace NanoSoft.EntityFramework
             return new Paginated<TResult>(result, current, size, total);
         }
 
-        public static Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target)
-            => PaginateAsync(query, request.PageSize, request.CurrentPage, target);
+        public static Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
+            => PaginateAsync(query, request.PageSize, request.CurrentPage, target, startFrom);
 
 
 
-        public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, int size, int current)
+        public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, int size, int current, StartFrom startFrom = StartFrom.FirstPage)
         {
             var total = query.Count();
 
-            var skippedPages = current - 1;
+            var skipped = CalculateSkipped(total, size, current, startFrom);
 
-            var result = query.Skip(skippedPages * size)
+            var result = query.Skip(skipped)
                 .Take(size)
                 .ToList();
 
             return new Paginated<TSource>(result, current, size, total);
         }
 
-        public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, IPaginationRequest request) => Paginate(query, request.PageSize, request.CurrentPage);
+        public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, IPaginationRequest request, StartFrom startFrom = StartFrom.FirstPage)
+            => Paginate(query, request.PageSize, request.CurrentPage, startFrom);
 
 
-        public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target)
+        public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
         {
             var total = query.Count();
 
-            var skippedPages = current - 1;
+            var skipped = CalculateSkipped(total, size, current, startFrom);
 
-            var result = query.Skip(skippedPages * size)
+            var result = query.Skip(skipped)
                 .Take(size)
                 .Select(target.Compile())
                 .ToList();
@@ -73,6 +75,26 @@ namespace NanoSoft.EntityFramework
             return new Paginated<TResult>(result, current, size, total);
         }
 
-        public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target) => Paginate(query, request.PageSize, request.CurrentPage, target);
+        public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
+            => Paginate(query, request.PageSize, request.CurrentPage, target, startFrom);
+
+
+        private static int CalculateSkipped(int total, int size, int current, StartFrom startFrom)
+        {
+            if (startFrom == StartFrom.FirstPage)
+                return (current - 1) * size;
+
+            if (size == 0)
+                return 0;
+
+            var result = total / size;
+
+            var remaining = total % size;
+
+            if (remaining > 0)
+                return result + 1;
+
+            return result;
+        }
     }
 }

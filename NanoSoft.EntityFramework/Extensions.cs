@@ -21,6 +21,8 @@ namespace NanoSoft.EntityFramework
             return new Paginated<TSource>(result, current, size, total);
         }
 
+        public static Task<Paginated<TSource>> PaginateAsync<TSource>(this IQueryable<TSource> query, IPaginationRequest request) => PaginateAsync(query, request.PageSize, request.CurrentPage);
+
 
         public static async Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target)
         {
@@ -36,6 +38,10 @@ namespace NanoSoft.EntityFramework
             return new Paginated<TResult>(result, current, size, total);
         }
 
+        public static Task<Paginated<TResult>> PaginateAsync<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target)
+            => PaginateAsync(query, request.PageSize, request.CurrentPage, target);
+
+
 
         public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, int size, int current)
         {
@@ -49,6 +55,8 @@ namespace NanoSoft.EntityFramework
 
             return new Paginated<TSource>(result, current, size, total);
         }
+
+        public static Paginated<TSource> Paginate<TSource>(this IQueryable<TSource> query, IPaginationRequest request) => Paginate(query, request.PageSize, request.CurrentPage);
 
 
         public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target)
@@ -64,5 +72,7 @@ namespace NanoSoft.EntityFramework
 
             return new Paginated<TResult>(result, current, size, total);
         }
+
+        public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target) => Paginate(query, request.PageSize, request.CurrentPage, target);
     }
 }

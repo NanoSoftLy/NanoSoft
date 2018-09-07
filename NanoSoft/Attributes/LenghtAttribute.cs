@@ -33,7 +33,7 @@ namespace NanoSoft.Attributes
             if (string.IsNullOrWhiteSpace(value?.ToString()))
                 return ValidationResult.Success;
 
-            var s = value.ToString();
+            var s = value.ToString().Trim();
 
             return s.Length > Length || s.Length < Min
                 ? new ValidationResult(string.Format(errorMessage, Length, "{0}"))

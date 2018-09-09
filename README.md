@@ -1,0 +1,2 @@
+# NanoSoft.ly
+NanoSoft Core

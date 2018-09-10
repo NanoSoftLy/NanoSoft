@@ -79,11 +79,38 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to هل أنت متأكد من أنك تريد حذف هذا السجل ؟.
+        /// </summary>
+        public static string ConfirmDelete {
+            get {
+                return ResourceManager.GetString("ConfirmDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سيتم إفراغ جميع الحقول, هل أنت متأكد من أنك تريد المتابعة ؟.
+        /// </summary>
+        public static string ConfirmEmpty {
+            get {
+                return ResourceManager.GetString("ConfirmEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to متابعة.
         /// </summary>
         public static string Continue {
             get {
                 return ResourceManager.GetString("Continue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to لا توجد أي نتائج ..
+        /// </summary>
+        public static string NoResults {
+            get {
+                return ResourceManager.GetString("NoResults", resourceCulture);
             }
         }
         

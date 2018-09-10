@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Check_CollectionNotEmpty" xml:space="preserve">
+    <value>Collection cannot be empty</value>
+  </data>
+  <data name="Check_IsValidDate" xml:space="preserve">
+    <value>Date cannot be before 100 years or more than 100</value>
+  </data>
+  <data name="Check_MoreThanZero" xml:space="preserve">
+    <value>Number must be more than zero</value>
+  </data>
+  <data name="Check_NotDefault" xml:space="preserve">
+    <value>Default value is not valid</value>
+  </data>
+  <data name="Check_NotEmpty" xml:space="preserve">
+    <value>String cannot be empty</value>
+  </data>
+  <data name="Check_NotZero" xml:space="preserve">
+    <value>Number cannot be zero</value>
+  </data>
+  <data name="Check_ZeroOrMore" xml:space="preserve">
+    <value>Number cannot be less than zero</value>
+  </data>
+  <data name="InRange" xml:space="preserve">
+    <value>The field {0} should be bigger than {1} and smaller than {2}.</value>
+  </data>
+  <data name="InvalidDateRange" xml:space="preserve">
+    <value>You must input a valid date range.</value>
+  </data>
+  <data name="InvalidNumber" xml:space="preserve">
+    <value>You must input a valid number.</value>
+  </data>
+  <data name="InvalidPassword" xml:space="preserve">
+    <value>Please input a valid password.</value>
+  </data>
+  <data name="InvalidPastDate" xml:space="preserve">
+    <value>You must input an older date in field {0}.</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>You must input a valid time in field {0}.</value>
+  </data>
+  <data name="InvalidTimeRange" xml:space="preserve">
+    <value>You must input a valid time range.</value>
+  </data>
+  <data name="InvalidValue" xml:space="preserve">
+    <value>You must input a valid value in field {0}.</value>
+  </data>
+  <data name="IsNumeric" xml:space="preserve">
+    <value>The field {0} must be a number.</value>
+  </data>
+  <data name="IsRequired" xml:space="preserve">
+    <value>The field {0} is required.</value>
+  </data>
+  <data name="LoginFailed" xml:space="preserve">
+    <value>The Username or password you provided is invalid.</value>
+  </data>
+  <data name="MaxLength" xml:space="preserve">
+    <value>The maximum length for field {0} is {1} character.</value>
+  </data>
+  <data name="MinimumNumber" xml:space="preserve">
+    <value>The minimum number for field {0} is {1}.</value>
+  </data>
+  <data name="MinMaxLength" xml:space="preserve">
+    <value>You cannot input less than {0} characters or more than {1} character in field {2}.</value>
+  </data>
+  <data name="NameExisted" xml:space="preserve">
+    <value>The provided name is already existed.</value>
+  </data>
+  <data name="NotExisted" xml:space="preserve">
+    <value>Not existed.</value>
+  </data>
+  <data name="NotZero" xml:space="preserve">
+    <value>The field {0} cannot be zero.</value>
+  </data>
+  <data name="PasswordNotMatch" xml:space="preserve">
+    <value>The password you provided doesn't match.</value>
+  </data>
+  <data name="PastDateRequired" xml:space="preserve">
+    <value>The field {0} must be a valid date.</value>
+  </data>
+  <data name="ResponseState_BadRequest" xml:space="preserve">
+    <value>Bad Request.</value>
+  </data>
+  <data name="ResponseState_Empty" xml:space="preserve">
+    <value>No Results.</value>
+  </data>
+  <data name="ResponseState_Forbidden" xml:space="preserve">
+    <value>You don't have permission to access this content.</value>
+  </data>
+  <data name="ResponseState_NotFound" xml:space="preserve">
+    <value>Result not found.</value>
+  </data>
+  <data name="ResponseState_Unacceptable" xml:space="preserve">
+    <value>This process is not acceptable.</value>
+  </data>
+  <data name="ResponseState_Unauthorized" xml:space="preserve">
+    <value>Please login then continue.</value>
+  </data>
+  <data name="ResponseState_Unavailable" xml:space="preserve">
+    <value>Network is not available.</value>
+  </data>
+  <data name="ResponseState_Valid" xml:space="preserve">
+    <value>Process succeed.</value>
+  </data>
+  <data name="ShouldBeRoundedNumber" xml:space="preserve">
+    <value>You cannot input invalid decimal fraction in field {0}.</value>
+  </data>
+  <data name="ShouldHaveItems" xml:space="preserve">
+    <value>You must input at least one item in {0}.</value>
+  </data>
+  <data name="ShouldSelected" xml:space="preserve">
+    <value>The field {0} is required.</value>
+  </data>
+  <data name="ShouldSelectFromList" xml:space="preserve">
+    <value>You must select from the list before continue.</value>
+  </data>
+  <data name="SuccessCreate" xml:space="preserve">
+    <value>Create Succeed.</value>
+  </data>
+  <data name="SuccessDelete" xml:space="preserve">
+    <value>Delete Succeed.</value>
+  </data>
+  <data name="SuccessEdit" xml:space="preserve">
+    <value>Update Succeed.</value>
+  </data>
+  <data name="TrueOrZero" xml:space="preserve">
+    <value>The field {0} must be zero or more.</value>
+  </data>
+  <data name="TrueYear" xml:space="preserve">
+    <value>You must input a valid year in field {0}.</value>
+  </data>
+  <data name="UserExisted" xml:space="preserve">
+    <value>The Username already exists.</value>
+  </data>
+</root>

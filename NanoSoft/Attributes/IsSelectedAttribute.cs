@@ -15,16 +15,13 @@ namespace NanoSoft.Attributes
             if (value == null)
                 return ValidationResult.Success;
 
-            var stringValue = value as string ?? value.ToString();
-
-            if (string.IsNullOrWhiteSpace(stringValue))
+            if (value is string stringValue && string.IsNullOrWhiteSpace(stringValue))
                 return new ValidationResult(errorMessage);
 
             if (value is Guid guid)
                 return guid == default(Guid)
                     ? new ValidationResult(errorMessage)
                     : ValidationResult.Success;
-
 
             var i = (int)value;
 

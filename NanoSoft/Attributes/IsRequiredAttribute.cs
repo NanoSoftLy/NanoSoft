@@ -16,9 +16,10 @@ namespace NanoSoft.Attributes
             if (value == null)
                 return new ValidationResult(errorMessage);
 
-            var stringValue = value as string ?? value.ToString();
+            if (value is string stringValue && string.IsNullOrWhiteSpace(stringValue))
+                return new ValidationResult(errorMessage);
 
-            return string.IsNullOrWhiteSpace(stringValue) ? new ValidationResult(errorMessage) : ValidationResult.Success;
+            return ValidationResult.Success;
         }
     }
 }

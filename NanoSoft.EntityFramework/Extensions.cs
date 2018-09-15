@@ -87,14 +87,14 @@ namespace NanoSoft.EntityFramework
             if (size == 0)
                 return 0;
 
-            var result = total / size;
+            var result = (total / size) - 1;
 
             var remaining = total % size;
 
             if (remaining > 0)
-                return result + 1;
+                return (result + 1) * size;
 
-            return result;
+            return result * size;
         }
     }
 }

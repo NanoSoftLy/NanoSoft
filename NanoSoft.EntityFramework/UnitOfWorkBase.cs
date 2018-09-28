@@ -8,7 +8,7 @@ namespace NanoSoft.EntityFramework
     {
         private readonly NanoSoftDbContext _context;
 
-        public UnitOfWorkBase(NanoSoftDbContext context)
+        protected UnitOfWorkBase(NanoSoftDbContext context)
         {
             _context = context;
         }

@@ -22,8 +22,6 @@ namespace NanoSoft.Wpf.Identity
             _identityService = identityService;
         }
 
-        public Guid Id { get; set; }
-
         private RelayCommand _newCommand;
         public virtual RelayCommand NewCommand
         {
@@ -32,17 +30,24 @@ namespace NanoSoft.Wpf.Identity
         }
 
 
-        private RelayCommand _saveCommand;
-        public virtual RelayCommand SaveCommand
+        private RelayCommand<Guid> _createCommand;
+        public virtual RelayCommand<Guid> CreateCommand
         {
-            get => _saveCommand ?? new RelayCommand(SaveAsync, CanSubmit);
-            protected set => _saveCommand = value;
+            get => _createCommand ?? new RelayCommand<Guid>(CreateAsync, id => CanSubmit());
+            protected set => _createCommand = value;
         }
 
-        private RelayCommand _deleteCommand;
-        public virtual RelayCommand DeleteCommand
+        private RelayCommand<Guid> _editCommand;
+        public virtual RelayCommand<Guid> EditCommand
         {
-            get => _deleteCommand ?? new RelayCommand(DeleteAsync);
+            get => _editCommand ?? new RelayCommand<Guid>(EditAsync, id => CanSubmit());
+            protected set => _editCommand = value;
+        }
+
+        private RelayCommand<Guid> _deleteCommand;
+        public virtual RelayCommand<Guid> DeleteCommand
+        {
+            get => _deleteCommand ?? new RelayCommand<Guid>(DeleteAsync);
             protected set => _deleteCommand = value;
         }
 
@@ -103,7 +108,6 @@ namespace NanoSoft.Wpf.Identity
         private void Clear()
         {
             StopEvaluateErrors();
-            Id = default(Guid);
             LoginName = null;
             Password = null;
             ConfirmPassword = null;
@@ -111,16 +115,26 @@ namespace NanoSoft.Wpf.Identity
             StartEvaluateErrors();
         }
 
-        private async Task SaveAsync()
+        private async Task CreateAsync(Guid id)
         {
             try
             {
                 LoadingStarted();
 
-                if (Id == default(Guid))
-                    await CreateAsync();
-                else
-                    await EditAsync();
+                var identityUser = NewIdentityUser();
+
+                using (var unitOfWork = _identityService.Initialize())
+                {
+                    await unitOfWork.IdentityUsers.AddAsync(identityUser);
+
+                    if (!await unitOfWork.TryCompleteAsync())
+                    {
+                        Failed(this, unitOfWork.ValidationState.Message);
+                        return;
+                    }
+
+                    Succeed(this, System.EventArgs.Empty);
+                }
             }
             catch (Exception e)
             {
@@ -132,54 +146,46 @@ namespace NanoSoft.Wpf.Identity
             }
         }
 
-        private async Task CreateAsync()
+        private async Task EditAsync(Guid id)
         {
-            var identityUser = NewIdentityUser();
-
-            using (var unitOfWork = _identityService.Initialize())
+            try
             {
-                await unitOfWork.IdentityUsers.AddAsync(identityUser);
-
-                if (!await unitOfWork.TryCompleteAsync())
+                using (var unitOfWork = _identityService.Initialize())
                 {
-                    Failed(this, unitOfWork.ValidationState.Message);
-                    return;
-                }
+                    var identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
 
-                Id = identityUser.Id;
-                Succeed(this, System.EventArgs.Empty);
+                    if (identityUser == null)
+                    {
+                        Failed(this, SharedMessages.ResponseState_NotFound);
+                        return;
+                    }
+
+                    ModifyIdentityUser(identityUser);
+
+                    if (!await unitOfWork.TryCompleteAsync())
+                    {
+                        Failed(this, unitOfWork.ValidationState.Message);
+                        return;
+                    }
+
+                    Succeed(this, System.EventArgs.Empty);
+                }
+            }
+            catch (Exception e)
+            {
+                Services.HandleException(e);
+            }
+            finally
+            {
+                LoadingEnded();
             }
         }
 
-        private async Task EditAsync()
+        private async Task DeleteAsync(Guid id)
         {
             using (var unitOfWork = _identityService.Initialize())
             {
-                var identityUser = await unitOfWork.IdentityUsers.FindAsync(Id);
-
-                if (identityUser == null)
-                {
-                    Failed(this, SharedMessages.ResponseState_NotFound);
-                    return;
-                }
-
-                ModifyIdentityUser(identityUser);
-
-                if (!await unitOfWork.TryCompleteAsync())
-                {
-                    Failed(this, unitOfWork.ValidationState.Message);
-                    return;
-                }
-
-                Succeed(this, System.EventArgs.Empty);
-            }
-        }
-
-        private async Task DeleteAsync()
-        {
-            using (var unitOfWork = _identityService.Initialize())
-            {
-                var identityUser = await unitOfWork.IdentityUsers.FindAsync(Id);
+                var identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
 
                 if (identityUser == null)
                 {

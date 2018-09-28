@@ -161,7 +161,7 @@ namespace NanoSoft.Wpf.Identity
                         return;
                     }
 
-                    Succeed(this, identityUser);
+                    Created(this, identityUser);
                 }
             }
             catch (Exception e)
@@ -196,7 +196,7 @@ namespace NanoSoft.Wpf.Identity
                         return;
                     }
 
-                    Succeed(this, identityUser);
+                    Modified(this, identityUser);
                 }
             }
             catch (Exception e)
@@ -229,7 +229,7 @@ namespace NanoSoft.Wpf.Identity
                     return;
                 }
 
-                Succeed(this, identityUser);
+                Deleted(this, System.EventArgs.Empty);
             }
         }
 
@@ -237,6 +237,8 @@ namespace NanoSoft.Wpf.Identity
         protected abstract void ModifyIdentityUser(TIdentityUser identityUser);
 
         public event EventHandler<string> Failed = delegate { };
-        public event EventHandler<TIdentityUser> Succeed = delegate { };
+        public event EventHandler<TIdentityUser> Created = delegate { };
+        public event EventHandler<TIdentityUser> Modified = delegate { };
+        public event EventHandler Deleted = delegate { };
     }
 }

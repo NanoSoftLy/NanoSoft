@@ -155,6 +155,19 @@ namespace NanoSoft.Wpf.Identity
                 {
                     await unitOfWork.IdentityUsers.AddAsync(identityUser);
 
+                    if (await unitOfWork.TryCompleteAsync())
+                    {
+                        Created(this, identityUser);
+                        return;
+                    }
+                }
+
+                using (var unitOfWork = _identityService.Initialize())
+                {
+                    identityUser.Name = Guid.NewGuid().ToString();
+
+                    await unitOfWork.IdentityUsers.AddAsync(identityUser);
+
                     if (!await unitOfWork.TryCompleteAsync())
                     {
                         Failed(this, unitOfWork.ValidationState.Message);

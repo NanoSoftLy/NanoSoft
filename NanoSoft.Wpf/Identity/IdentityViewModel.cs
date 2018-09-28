@@ -99,6 +99,34 @@ namespace NanoSoft.Wpf.Identity
             }
         }
 
+        public virtual async Task LoadAsync(Guid id)
+        {
+            try
+            {
+                LoadingStarted();
+
+                TIdentityUser identityUser;
+                using (var unitOfWork = _identityService.Initialize())
+                {
+                    identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
+                }
+
+                if (identityUser == null)
+                    return;
+
+                LoginName = identityUser.Name;
+            }
+            catch (Exception e)
+            {
+                Services.HandleException(e);
+            }
+            finally
+            {
+                LoadingEnded();
+                StartEvaluateErrors();
+            }
+        }
+
         private Task NewAsync()
         {
             Clear();

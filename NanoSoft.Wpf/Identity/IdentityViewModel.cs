@@ -121,7 +121,7 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
-                var identityUser = NewIdentityUser();
+                var identityUser = NewIdentityUser(id);
 
                 using (var unitOfWork = _identityService.Initialize())
                 {
@@ -205,7 +205,7 @@ namespace NanoSoft.Wpf.Identity
             }
         }
 
-        protected abstract TIdentityUser NewIdentityUser();
+        protected abstract TIdentityUser NewIdentityUser(Guid id);
         protected abstract void ModifyIdentityUser(TIdentityUser identityUser);
 
         public event EventHandler<string> Failed = delegate { };

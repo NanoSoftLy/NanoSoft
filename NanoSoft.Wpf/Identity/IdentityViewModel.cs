@@ -149,6 +149,9 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
+                if (!IsValid())
+                    return;
+
                 var identityUser = NewIdentityUser(id);
 
                 using (var unitOfWork = _identityService.Initialize())
@@ -189,6 +192,9 @@ namespace NanoSoft.Wpf.Identity
 
         private async Task EditAsync(Guid id)
         {
+            if (!IsValid())
+                return;
+
             try
             {
                 using (var unitOfWork = _identityService.Initialize())
@@ -244,6 +250,24 @@ namespace NanoSoft.Wpf.Identity
 
                 Deleted(this, System.EventArgs.Empty);
             }
+        }
+
+        protected virtual bool IsValid()
+        {
+            if (string.IsNullOrWhiteSpace(Password)
+                || string.IsNullOrWhiteSpace(ConfirmPassword))
+            {
+                Failed(this, string.Format(SharedMessages.IsRequired, SharedTitles.Password));
+                return false;
+            }
+
+            if (Password != ConfirmPassword)
+            {
+                Failed(this, SharedMessages.PasswordNotMatch);
+                return false;
+            }
+
+            return true;
         }
 
         protected abstract TIdentityUser NewIdentityUser(Guid id);

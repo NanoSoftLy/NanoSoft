@@ -115,6 +115,8 @@ namespace NanoSoft.Wpf.Identity
                     return;
 
                 LoginName = identityUser.Name;
+                Password = null;
+                ConfirmPassword = null;
             }
             catch (Exception e)
             {
@@ -249,6 +251,7 @@ namespace NanoSoft.Wpf.Identity
                 }
 
                 Deleted(this, System.EventArgs.Empty);
+                Clear();
             }
         }
 

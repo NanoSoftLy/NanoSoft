@@ -29,14 +29,6 @@ namespace NanoSoft.Wpf.Identity
             protected set => _newCommand = value;
         }
 
-
-        private RelayCommand<Guid> _createCommand;
-        public virtual RelayCommand<Guid> CreateCommand
-        {
-            get => _createCommand ?? new RelayCommand<Guid>(CreateAsync, id => CanSubmit());
-            protected set => _createCommand = value;
-        }
-
         private RelayCommand<Guid> _editCommand;
         public virtual RelayCommand<Guid> EditCommand
         {
@@ -145,14 +137,11 @@ namespace NanoSoft.Wpf.Identity
             StartEvaluateErrors();
         }
 
-        private async Task CreateAsync(Guid id)
+        public virtual async Task CreateAsync(Guid id)
         {
             try
             {
                 LoadingStarted();
-
-                if (!IsValid())
-                    return;
 
                 var identityUser = NewIdentityUser(id);
 

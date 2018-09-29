@@ -1,6 +1,5 @@
 ﻿using NanoSoft.Attributes;
 using NanoSoft.Identity;
-using NanoSoft.Repository;
 using NanoSoft.Resources;
 using NanoSoft.Wpf.Mvvm;
 using NanoSoft.Wpf.Services;
@@ -12,7 +11,7 @@ namespace NanoSoft.Wpf.Identity
 {
     public abstract class IdentityViewModel<TApp, TIdentityRepository, TIdentityUser> : NanoSoftBindableBase<TApp>
         where TIdentityUser : BaseIdentityUser
-        where TIdentityRepository : IRepository<TIdentityUser>
+        where TIdentityRepository : IIdentityRepository<TIdentityUser>
     {
         private readonly IIdentityServices<TIdentityRepository, TIdentityUser> _identityService;
 

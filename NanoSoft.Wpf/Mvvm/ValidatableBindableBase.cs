@@ -22,20 +22,24 @@ namespace NanoSoft.Wpf.Mvvm
 
         public void ClearErrors()
         {
+            StopEvaluateErrors();
             foreach (var error in _errors)
             {
                 error.Value.Clear();
+                OnPropertyChanged(error.Key);
                 RaiseErrorChanged(error.Key);
             }
 
             foreach (var error in _addedErrors)
             {
                 error.Value.Clear();
+                OnPropertyChanged(error.Key);
                 RaiseErrorChanged(error.Key);
             }
 
             _errors.Clear();
             _addedErrors.Clear();
+            StartEvaluateErrors();
         }
 
         public IEnumerable GetErrors(string propertyName)
@@ -60,7 +64,7 @@ namespace NanoSoft.Wpf.Mvvm
 
         protected void StartEvaluateErrors() => _evaluateErrors = true;
         protected void StopEvaluateErrors() => _evaluateErrors = false;
-        private bool _evaluateErrors;
+        private bool _evaluateErrors = true;
 
         private void ValidateProperty<T>(string propertyName, T value)
         {

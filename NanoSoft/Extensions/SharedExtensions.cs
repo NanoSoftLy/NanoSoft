@@ -79,6 +79,10 @@ namespace NanoSoft.Extensions
             return sb.ToString().ToLower();
         }
 
+
+        public static string ToBCryptHash(this string input, string salt)
+            => BCrypt.Net.BCrypt.HashPassword(input, salt);
+
         public static string DisplayName<TSource>(this TSource source, Expression<Func<TSource, object>> expression)
         {
             var name = expression?.ToExpressionTarget() ?? source.ToString();

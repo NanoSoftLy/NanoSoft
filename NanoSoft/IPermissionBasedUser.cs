@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace NanoSoft
+﻿namespace NanoSoft
 {
-    public interface IPermissionBasedUser<in TPermission>
+    public interface IPermissionBasedUser<in TPermission, in TType>
     {
-        bool Can(TPermission permission, Type type);
-
+        bool Can(TPermission permission, TType type);
         bool Can(TPermission permission);
     }
 }

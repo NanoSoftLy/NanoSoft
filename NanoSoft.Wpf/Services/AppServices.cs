@@ -30,12 +30,12 @@ namespace NanoSoft.Wpf.Services
 
             var mySettings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = Phrases.Continue,
+                AffirmativeButtonText = SharedPhrases.Continue,
                 DialogMessageFontSize = 15,
                 DialogTitleFontSize = 20,
             };
 
-            Application.Current.Dispatcher.Invoke(() => metroWindow.ShowMessageAsync(Phrases.Warning, message?.Replace(".", ".\n"),
+            Application.Current.Dispatcher.Invoke(() => metroWindow.ShowMessageAsync(SharedPhrases.Alert, message?.Replace(".", ".\n"),
                 MessageDialogStyle.Affirmative, mySettings));
         }
 
@@ -46,13 +46,13 @@ namespace NanoSoft.Wpf.Services
 
             var mySettings = new MetroDialogSettings()
             {
-                AffirmativeButtonText = Phrases.Continue,
+                AffirmativeButtonText = SharedPhrases.Continue,
                 DialogMessageFontSize = 15,
                 DialogTitleFontSize = 20,
-                NegativeButtonText = Phrases.Cancel,
+                NegativeButtonText = SharedPhrases.Cancel,
             };
 
-            var result = await metroWindow.ShowMessageAsync(Phrases.Warning, message,
+            var result = await metroWindow.ShowMessageAsync(SharedPhrases.Alert, message,
                 MessageDialogStyle.AffirmativeAndNegative, mySettings);
 
             return result != MessageDialogResult.Negative;

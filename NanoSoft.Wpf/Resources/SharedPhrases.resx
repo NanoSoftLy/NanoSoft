@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>حول البرنامج</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>تنبيه !</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>عربي</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
@@ -129,13 +138,109 @@
   <data name="ConfirmEmpty" xml:space="preserve">
     <value>سيتم إفراغ جميع الحقول, هل أنت متأكد من أنك تريد المتابعة ؟</value>
   </data>
+  <data name="ConfirmLogout" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد تسجيل الخروج ؟</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>متابعة</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="DefaultLanguage" xml:space="preserve">
+    <value>اللغة الافتراضية</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>انجليزي</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>دخول</value>
+  </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>تاريخ صلاحية البرنامج</value>
+  </data>
+  <data name="Fifty" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Hundred" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>اللغة</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="LoginDetails" xml:space="preserve">
+    <value>بيانات الدخول</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>جديد</value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>لا توجد أي نتائج .</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>تنبيه !</value>
+  <data name="NumberOfResults" xml:space="preserve">
+    <value>عدد النتائج</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>الصلاحيات</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>طباعة</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>--اختر--</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>ر.ت</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>الإعدادات</value>
+  </data>
+  <data name="SeventyFive" xml:space="preserve">
+    <value>75</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>ترتيب النتائج</value>
+  </data>
+  <data name="SuccessAndAlertRestart" xml:space="preserve">
+    <value>تم التعديل بنجاح, لن يتم تغيير اللغة إلا بعد إعادة تشغيل البرنامج.</value>
+  </data>
+  <data name="TwentyFive" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="Unselected" xml:space="preserve">
+    <value>--غير محدد--</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>بيانات المستخدم</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>المستخدمين</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>مشاهدة</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>الموقع الاكتروني</value>
   </data>
 </root>

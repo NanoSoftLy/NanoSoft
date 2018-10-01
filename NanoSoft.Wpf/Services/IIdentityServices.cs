@@ -1,11 +1,7 @@
-﻿using NanoSoft.Identity;
-
-namespace NanoSoft.Wpf.Services
+﻿namespace NanoSoft.Wpf.Services
 {
-    public interface IIdentityServices<out TRepository, TIdentityUser>
-        where TRepository : IIdentityRepository<TIdentityUser>
-        where TIdentityUser : BaseIdentityUser
+    public interface IIdentityServiceProvider<out TIdentityService>
     {
-        IIdentityUnitOfWork<TRepository, TIdentityUser> Initialize();
+        TIdentityService Initialize();
     }
 }

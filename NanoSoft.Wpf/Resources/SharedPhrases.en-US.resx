@@ -117,6 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="Alert" xml:space="preserve">
+    <value>Alert !</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -129,13 +138,103 @@
   <data name="ConfirmEmpty" xml:space="preserve">
     <value>Are you sure you want to reset all the fields ?</value>
   </data>
+  <data name="ConfirmLogout" xml:space="preserve">
+    <value>Are you sure you want to logout ?</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Continue</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="Fifty" xml:space="preserve">
+    <value>50</value>
+  </data>
+  <data name="Hundred" xml:space="preserve">
+    <value>100</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LoginDetails" xml:space="preserve">
+    <value>Login Details</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
   </data>
   <data name="NoResults" xml:space="preserve">
     <value>No Results.</value>
   </data>
-  <data name="Warning" xml:space="preserve">
-    <value>Warning !</value>
+  <data name="NumberOfResults" xml:space="preserve">
+    <value>Results Size</value>
+  </data>
+  <data name="Permissions" xml:space="preserve">
+    <value>Permissions</value>
+  </data>
+  <data name="Print" xml:space="preserve">
+    <value>Print</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>--Select--</value>
+  </data>
+  <data name="SerialNo" xml:space="preserve">
+    <value>No.</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SeventyFive" xml:space="preserve">
+    <value>75</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort by</value>
+  </data>
+  <data name="SuccessAndAlertRestart" xml:space="preserve">
+    <value>Update succeed, the language will be changed after you restart the application.</value>
+  </data>
+  <data name="TwentyFive" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="Unselected" xml:space="preserve">
+    <value>--Unselected--</value>
+  </data>
+  <data name="UserDetails" xml:space="preserve">
+    <value>User Details</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="Website" xml:space="preserve">
+    <value>Website</value>
   </data>
 </root>

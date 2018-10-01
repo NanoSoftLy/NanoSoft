@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
-    <Version>1.2.3</Version>
+    <Version>1.2.4</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,17 +18,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Resources\Phrases.Designer.cs">
+    <Compile Update="Resources\SharedPhrases.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Phrases.resx</DependentUpon>
+      <DependentUpon>SharedPhrases.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Phrases.resx">
+    <EmbeddedResource Update="Resources\SharedPhrases.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Phrases.Designer.cs</LastGenOutput>
+      <LastGenOutput>SharedPhrases.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 

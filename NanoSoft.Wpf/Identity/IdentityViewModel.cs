@@ -9,16 +9,15 @@ using System.Threading.Tasks;
 
 namespace NanoSoft.Wpf.Identity
 {
-    public abstract class IdentityViewModel<TApp, TIdentityRepository, TIdentityUser> : NanoSoftBindableBase<TApp>
-        where TIdentityUser : BaseIdentityUser
-        where TIdentityRepository : IIdentityRepository<TIdentityUser>
+    public abstract class IdentityBaseViewModel<TApp, TIdentityServiceProvider, TIdentityService, TIdentityResult> : NanoSoftBindableBase<TApp>
+        where TIdentityService : IIdentityService<TIdentityResult>
+        where TIdentityServiceProvider : IIdentityServiceProvider<TIdentityService>
     {
-        private readonly IIdentityServices<TIdentityRepository, TIdentityUser> _identityService;
-
-        public IdentityViewModel(IAppServices<TApp> appService, IIdentityServices<TIdentityRepository, TIdentityUser> identityService)
+        private readonly TIdentityServiceProvider _identityServiceProvider;
+        public IdentityBaseViewModel(IAppServices<TApp> appService, TIdentityServiceProvider identityServiceProvider)
             : base(appService)
         {
-            _identityService = identityService;
+            _identityServiceProvider = identityServiceProvider;
         }
 
         private RelayCommand _newCommand;
@@ -66,7 +65,7 @@ namespace NanoSoft.Wpf.Identity
             set => SetProperty(ref _confirmPassword, value);
         }
 
-        public List<TIdentityUser> IdentityUsers { get; set; } = new List<TIdentityUser>();
+        public List<KeyValuePair> IdentityUsers { get; set; } = new List<KeyValuePair>();
 
         public virtual async Task LoadAsync()
         {
@@ -74,10 +73,19 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
-                using (var unitOfWork = _identityService.Initialize())
+                Response<List<KeyValuePair>> response;
+                using (var service = _identityServiceProvider.Initialize())
                 {
-                    IdentityUsers = await unitOfWork.IdentityUsers.GetAllAsync();
+                    response = await service.GetAllAsync();
                 }
+
+                if (!response.IsValid)
+                {
+                    Failed(this, response.Message);
+                    return;
+                }
+
+                IdentityUsers = response.Model;
             }
             catch (Exception e)
             {
@@ -86,7 +94,6 @@ namespace NanoSoft.Wpf.Identity
             finally
             {
                 LoadingEnded();
-                StartEvaluateErrors();
             }
         }
 
@@ -96,18 +103,19 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
-                TIdentityUser identityUser;
-                using (var unitOfWork = _identityService.Initialize())
+                Response<string> response;
+                using (var service = _identityServiceProvider.Initialize())
                 {
-                    identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
+                    response = await service.GetIdentityNameByIdAsync(id);
                 }
 
-                if (identityUser == null)
+                if (!response.IsValid)
+                {
+                    Failed(this, response.Message);
                     return;
+                }
 
-                LoginName = identityUser.Name;
-                Password = null;
-                ConfirmPassword = null;
+                LoginName = response.Model;
             }
             catch (Exception e)
             {
@@ -116,7 +124,6 @@ namespace NanoSoft.Wpf.Identity
             finally
             {
                 LoadingEnded();
-                StartEvaluateErrors();
             }
         }
 
@@ -128,12 +135,10 @@ namespace NanoSoft.Wpf.Identity
 
         private void Clear()
         {
-            StopEvaluateErrors();
             LoginName = null;
             Password = null;
             ConfirmPassword = null;
             ClearErrors();
-            StartEvaluateErrors();
         }
 
         public virtual async Task CreateAsync(Guid id)
@@ -142,33 +147,19 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
-                var identityUser = NewIdentityUser(id);
-
-                using (var unitOfWork = _identityService.Initialize())
+                Response<string> response;
+                using (var services = _identityServiceProvider.Initialize())
                 {
-                    await unitOfWork.IdentityUsers.AddAsync(identityUser);
-
-                    if (await unitOfWork.TryCompleteAsync())
-                    {
-                        Created(this, identityUser);
-                        return;
-                    }
+                    response = await services.CreateIdentityAsync(id, LoginName);
                 }
 
-                using (var unitOfWork = _identityService.Initialize())
+                if (!response.IsValid)
                 {
-                    identityUser.Name = Guid.NewGuid().ToString();
-
-                    await unitOfWork.IdentityUsers.AddAsync(identityUser);
-
-                    if (!await unitOfWork.TryCompleteAsync())
-                    {
-                        Failed(this, unitOfWork.ValidationState.Message);
-                        return;
-                    }
-
-                    Created(this, identityUser);
+                    Failed(this, response.Message);
+                    return;
                 }
+
+                Created(this, response.Model);
             }
             catch (Exception e)
             {
@@ -187,26 +178,21 @@ namespace NanoSoft.Wpf.Identity
 
             try
             {
-                using (var unitOfWork = _identityService.Initialize())
+                LoadingStarted();
+
+                Response<string> response;
+                using (var services = _identityServiceProvider.Initialize())
                 {
-                    var identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
-
-                    if (identityUser == null)
-                    {
-                        Failed(this, SharedMessages.ResponseState_NotFound);
-                        return;
-                    }
-
-                    ModifyIdentityUser(identityUser);
-
-                    if (!await unitOfWork.TryCompleteAsync())
-                    {
-                        Failed(this, unitOfWork.ValidationState.Message);
-                        return;
-                    }
-
-                    Modified(this, identityUser);
+                    response = await services.CreateIdentityAsync(id, LoginName);
                 }
+
+                if (!response.IsValid)
+                {
+                    Failed(this, response.Message);
+                    return;
+                }
+
+                Modified(this, System.EventArgs.Empty);
             }
             catch (Exception e)
             {
@@ -220,26 +206,33 @@ namespace NanoSoft.Wpf.Identity
 
         private async Task DeleteAsync(Guid id)
         {
-            using (var unitOfWork = _identityService.Initialize())
-            {
-                var identityUser = await unitOfWork.IdentityUsers.FindAsync(id);
 
-                if (identityUser == null)
+            try
+            {
+                LoadingStarted();
+
+                Response response;
+                using (var services = _identityServiceProvider.Initialize())
                 {
-                    Failed(this, SharedMessages.ResponseState_NotFound);
-                    return;
+                    response = await services.DeleteIdentityAsync(id);
                 }
 
-                await unitOfWork.IdentityUsers.RemoveAsync(identityUser);
-
-                if (!await unitOfWork.TryCompleteAsync())
+                if (!response.IsValid)
                 {
-                    Failed(this, unitOfWork.ValidationState.Message);
+                    Failed(this, response.Message);
                     return;
                 }
 
                 Deleted(this, System.EventArgs.Empty);
                 Clear();
+            }
+            catch (Exception e)
+            {
+                Services.HandleException(e);
+            }
+            finally
+            {
+                LoadingEnded();
             }
         }
 
@@ -261,12 +254,9 @@ namespace NanoSoft.Wpf.Identity
             return true;
         }
 
-        protected abstract TIdentityUser NewIdentityUser(Guid id);
-        protected abstract void ModifyIdentityUser(TIdentityUser identityUser);
-
         public event EventHandler<string> Failed = delegate { };
-        public event EventHandler<TIdentityUser> Created = delegate { };
-        public event EventHandler<TIdentityUser> Modified = delegate { };
+        public event EventHandler<string> Created = delegate { };
+        public event EventHandler Modified = delegate { };
         public event EventHandler Deleted = delegate { };
     }
 }

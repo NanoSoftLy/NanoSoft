@@ -37,7 +37,7 @@ namespace NanoSoft.Wpf
                     return Language.Arabic;
 
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(culture));
+                    return default(Language);
             }
         }
 

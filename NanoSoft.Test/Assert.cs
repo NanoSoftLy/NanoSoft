@@ -24,5 +24,17 @@ namespace NanoSoft.Test
                 throw new Exception("expected != actual2, " + e.Message);
             }
         }
+
+        public static void NullOrWhiteSpace(string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                throw new Exception($"failed to assert that '{value}' is null or white space.");
+        }
+
+        public static void NotNullOrWhiteSpace(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                throw new Exception($"failed to assert that '{value}' is not null or white space.");
+        }
     }
 }

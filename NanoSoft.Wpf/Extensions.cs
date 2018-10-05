@@ -52,6 +52,17 @@ namespace NanoSoft.Wpf
             return from;
         }
 
+        public static DateTime ArrangeDate(this DateTime from, DateTime to)
+        {
+            if (from == null)
+                return to;
+
+            if (to != null && to >= from)
+                return to;
+
+            return from;
+        }
+
 
         public static BitmapImage ToBitmapImage(this byte[] imageData)
         {

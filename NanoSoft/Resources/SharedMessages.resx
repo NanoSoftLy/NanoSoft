@@ -249,4 +249,7 @@
   <data name="InvalidTime" xml:space="preserve">
     <value>يجب إدخال توقيت صحيح في حقل {0} قبل المتابعة.</value>
   </data>
+  <data name="InvalidCulture" xml:space="preserve">
+    <value>يجب اختيار لغة صحيحة قبل المتابعة.</value>
+  </data>
 </root>

@@ -249,4 +249,7 @@
   <data name="UserExisted" xml:space="preserve">
     <value>The Username already exists.</value>
   </data>
+  <data name="InvalidCulture" xml:space="preserve">
+    <value>You must select a valid culture.</value>
+  </data>
 </root>

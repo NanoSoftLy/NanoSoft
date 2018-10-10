@@ -10,7 +10,6 @@
 
 namespace NanoSoft.Resources {
     using System;
-    using System.Reflection;
     
     
     /// <summary>
@@ -40,7 +39,7 @@ namespace NanoSoft.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NanoSoft.Resources.SharedMessages", typeof(SharedMessages).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NanoSoft.Resources.SharedMessages", typeof(SharedMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -130,6 +129,15 @@ namespace NanoSoft.Resources {
         public static string InRange {
             get {
                 return ResourceManager.GetString("InRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to يجب اختيار لغة صحيحة قبل المتابعة..
+        /// </summary>
+        public static string InvalidCulture {
+            get {
+                return ResourceManager.GetString("InvalidCulture", resourceCulture);
             }
         }
         

@@ -180,10 +180,10 @@ namespace NanoSoft.Wpf.Identity
             {
                 LoadingStarted();
 
-                Response<string> response;
+                Response response;
                 using (var services = _identityServiceProvider.Initialize())
                 {
-                    response = await services.CreateIdentityAsync(id, LoginName);
+                    response = await services.TryUpdateIdentityNameAsync(id, LoginName, Password);
                 }
 
                 if (!response.IsValid)

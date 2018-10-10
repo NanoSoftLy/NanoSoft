@@ -64,6 +64,29 @@ namespace NanoSoft.Wpf
         }
 
 
+        public static TimeSpan? ArrangeDate(this TimeSpan? from, TimeSpan? to)
+        {
+            if (from == null)
+                return to;
+
+            if (to != null && to >= from)
+                return to;
+
+            return from;
+        }
+
+        public static TimeSpan ArrangeDate(this TimeSpan from, TimeSpan to)
+        {
+            if (from == null)
+                return to;
+
+            if (to != null && to >= from)
+                return to;
+
+            return from;
+        }
+
+
         public static BitmapImage ToBitmapImage(this byte[] imageData)
         {
             if (imageData == null || imageData.Length == 0) return null;

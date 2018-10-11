@@ -64,7 +64,7 @@ namespace NanoSoft.Wpf
         }
 
 
-        public static TimeSpan? ArrangeDate(this TimeSpan? from, TimeSpan? to)
+        public static TimeSpan? ArrangeTime(this TimeSpan? from, TimeSpan? to)
         {
             if (from == null)
                 return to;
@@ -75,7 +75,7 @@ namespace NanoSoft.Wpf
             return from;
         }
 
-        public static TimeSpan ArrangeDate(this TimeSpan from, TimeSpan to)
+        public static TimeSpan ArrangeTime(this TimeSpan from, TimeSpan to)
         {
             if (from == null)
                 return to;

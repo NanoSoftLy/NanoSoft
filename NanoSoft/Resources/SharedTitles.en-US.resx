@@ -135,6 +135,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EnglishName" xml:space="preserve">
+    <value>English Name</value>
+  </data>
   <data name="Fax" xml:space="preserve">
     <value>Fax</value>
   </data>

@@ -2,11 +2,11 @@
 using NanoSoft.Extensions;
 using NanoSoft.Repository;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace NanoSoft
 {
@@ -47,29 +47,47 @@ namespace NanoSoft
         {
             var context = new ValidationContext(model);
 
-            foreach (var property in model.GetType().GetRuntimeProperties())
-            {
-                var results = new List<ValidationResult>();
-                var value = property.GetValue(model);
-                context.MemberName = property.Name;
-
-                if (!Validator.TryValidateProperty(value, context, results))
-                {
-                    var errors = results.Select(r => r.ErrorMessage);
-                    if (Errors.ContainsKey(context.MemberName))
-                    {
-                        Errors[context.MemberName].AddRange(errors);
-                        continue;
-                    }
-
-                    Errors.Add(context.MemberName, errors.ToList());
-                }
-            }
+            ValidateProperties(model, context);
 
             if (model is IValidatable validatable)
                 validatable.Validate(this);
 
             return !Errors.Any();
+        }
+
+        private void ValidateProperties(object model, ValidationContext context, string prefixName = null)
+        {
+            foreach (var property in model.GetType().GetProperties())
+            {
+                var results = new List<ValidationResult>();
+                var value = property.GetValue(model);
+                context.MemberName = property.Name;
+                var keyName = (prefixName + "." + property.Name).Trim('.');
+
+                if (!Validator.TryValidateProperty(value, context, results))
+                {
+                    var errors = results.Select(r => r.ErrorMessage);
+                    if (Errors.ContainsKey(keyName))
+                    {
+                        Errors[keyName].AddRange(errors);
+                        continue;
+                    }
+
+                    Errors.Add(keyName, errors.ToList());
+                }
+
+                if (property.PropertyType.Namespace != "System"
+                    && value != null
+                    && value is IEnumerable enumerale)
+                {
+                    var index = 0;
+                    foreach (var item in enumerale)
+                    {
+                        ValidateProperties(item, new ValidationContext(item), $"{property.Name}[{index}]");
+                        index++;
+                    }
+                }
+            }
         }
 
         private void TryAddError(string name, string message)

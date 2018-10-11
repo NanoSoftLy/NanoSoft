@@ -135,6 +135,9 @@
   <data name="Email" xml:space="preserve">
     <value>البريد الالكتروني</value>
   </data>
+  <data name="EnglishName" xml:space="preserve">
+    <value>الاسم الانجليزي</value>
+  </data>
   <data name="Fax" xml:space="preserve">
     <value>الفاكس</value>
   </data>

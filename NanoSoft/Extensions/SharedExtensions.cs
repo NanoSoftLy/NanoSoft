@@ -185,7 +185,8 @@ namespace NanoSoft.Extensions
         {
             foreach (var property in typeof(T).GetRuntimeProperties())
             {
-                obj1.SetValue(property.Name, property.GetValue(obj2));
+                if (property.CanWrite)
+                    obj1.SetValue(property.Name, property.GetValue(obj2));
             }
 
             return obj1;
@@ -195,7 +196,8 @@ namespace NanoSoft.Extensions
         {
             foreach (var property in typeof(T).GetRuntimeProperties())
             {
-                obj2.SetValue(property.Name, property.GetValue(obj1));
+                if (property.CanWrite)
+                    obj2.SetValue(property.Name, property.GetValue(obj1));
             }
 
             return obj2;

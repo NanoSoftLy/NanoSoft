@@ -94,7 +94,7 @@ namespace NanoSoft.Wpf.Mvvm
             if (parameter is T newType)
                 return newType;
 
-            Console.WriteLine($"parameter of type {parameter.GetType().Name} is not of type {typeof(T).Name}, attempt to convert it ...");
+            Console.WriteLine($@"parameter of type {parameter.GetType().Name} is not of type {typeof(T).Name}, attempt to convert it ...");
             return (T)System.Convert.ChangeType(parameter, typeof(T));
         }
 

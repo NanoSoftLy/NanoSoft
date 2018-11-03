@@ -54,10 +54,7 @@ namespace NanoSoft.Wpf
 
         public static DateTime ArrangeDate(this DateTime from, DateTime to)
         {
-            if (from == null)
-                return to;
-
-            if (to != null && to >= from)
+            if (to >= @from)
                 return to;
 
             return from;
@@ -77,10 +74,7 @@ namespace NanoSoft.Wpf
 
         public static TimeSpan ArrangeTime(this TimeSpan from, TimeSpan to)
         {
-            if (from == null)
-                return to;
-
-            if (to != null && to >= from)
+            if (to >= @from)
                 return to;
 
             return from;

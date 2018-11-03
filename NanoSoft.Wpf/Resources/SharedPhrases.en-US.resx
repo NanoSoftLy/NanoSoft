@@ -240,4 +240,7 @@
   <data name="Website" xml:space="preserve">
     <value>Website</value>
   </data>
+  <data name="ExpireDate" xml:space="preserve">
+    <value>Application Expire Date</value>
+  </data>
 </root>

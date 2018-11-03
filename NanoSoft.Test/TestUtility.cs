@@ -1,13 +1,15 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using System;
+using JetBrains.Annotations;
 
 namespace NanoSoft.Test
 {
+    [PublicAPI]
     public abstract class TestUtility<TApplication, TUserInfo, TUnitOfWork, TDbContext> : IDisposable
         where TDbContext : DbContext
     {
-        public bool _inMemoryDb;
+        public bool InMemoryDb;
         private readonly string _dbName;
 
         protected abstract void Migrate(DbContext context);
@@ -17,12 +19,17 @@ namespace NanoSoft.Test
 
         public TestUtility(bool inMemoryDb)
         {
-            _inMemoryDb = inMemoryDb;
+            InMemoryDb = inMemoryDb;
             _dbName = Guid.NewGuid().ToString();
 
             if (inMemoryDb)
                 return;
 
+            BuildDb();
+        }
+
+        private void BuildDb()
+        {
             var context = NewDbContext();
             context.Database.EnsureDeleted();
             Migrate(context);
@@ -30,7 +37,7 @@ namespace NanoSoft.Test
 
         public void Dispose()
         {
-            if (!_inMemoryDb)
+            if (!InMemoryDb)
                 NewDbContext().Database.EnsureDeleted();
         }
 
@@ -38,7 +45,7 @@ namespace NanoSoft.Test
         {
             var builder = new DbContextOptionsBuilder();
 
-            builder = _inMemoryDb
+            builder = InMemoryDb
                 ? builder.UseInMemoryDatabase($"NanoSoft_{_dbName}")
                 : RegisterProvider(builder, _dbName);
 

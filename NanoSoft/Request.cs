@@ -28,11 +28,6 @@ namespace NanoSoft
         protected IRepository<TDomain> Repository { get; }
         public TDomain Result { get; protected set; }
 
-        public Response<TModel> Response<TModel>()
-        {
-            return new Response<TModel>(_response);
-        }
-
         public Response Response()
         {
             return _response;

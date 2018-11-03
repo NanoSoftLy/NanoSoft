@@ -1,8 +1,8 @@
-﻿using NanoSoft.Extensions;
+﻿using JetBrains.Annotations;
+using NanoSoft.Extensions;
 using NanoSoft.Resources;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 
 namespace NanoSoft
 {
@@ -36,19 +36,6 @@ namespace NanoSoft
 
         public static Response<TModel> SuccessDelete<TModel>(TModel model)
             => new Response<TModel>(model, SuccessDelete());
-
-        public static Response<TModel> Fail<TModel>(string message)
-            => new Response<TModel>(default(TModel), Fail(message));
-
-        public static Response<TModel> Fail<TModel>(ResponseState state)
-            => new Response<TModel>(default(TModel), Fail(state));
-
-        public static Response<TModel> Fail<TModel>(ResponseState state, string message)
-            => new Response<TModel>(default(TModel), Fail(state, message));
-
-        public static Response<TModel> Fail<TModel>(IValidator validator, ResponseState state = ResponseState.BadRequest)
-            => new Response<TModel>(default(TModel), Fail(validator, state));
-
 
 
         private Response(ResponseState state, string message)
@@ -102,7 +89,7 @@ namespace NanoSoft
         {
             return new Response<TModel>(response);
         }
-        
+
         public Response(Response response)
         {
             InnerResponse = response;

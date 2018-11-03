@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using NanoSoft.Extensions;
+﻿using NanoSoft.Extensions;
 using NanoSoft.Repository;
 using System;
 using System.Collections;
@@ -14,7 +13,7 @@ namespace NanoSoft
     {
         public Dictionary<string, List<string>> Errors { get; } = new Dictionary<string, List<string>>();
 
-        public Response AddError([NotNull] Expression<Func<object, object>> expression, [NotNull] string message, ResponseState state = ResponseState.BadRequest) => AddError(expression.ToExpressionTarget(), message, state);
+        public Response AddError(Expression<Func<object, object>> expression, string message, ResponseState state = ResponseState.BadRequest) => AddError(expression.ToExpressionTarget(), message, state);
 
         public Response AddError(string name, string message, ResponseState state = ResponseState.BadRequest)
         {
@@ -27,19 +26,7 @@ namespace NanoSoft
             => AddError(entityValidationState.PropertyName, entityValidationState.Message, state);
 
 
-        public Response<TModel> AddError<TModel>([NotNull] Expression<Func<TModel, object>> expression, [NotNull] string message, ResponseState state = ResponseState.BadRequest) => AddError<TModel>(expression.ToExpressionTarget(), message, state);
-
-        public Response<TModel> AddError<TModel>([NotNull] Expression<Func<object, object>> expression, [NotNull] string message, ResponseState state = ResponseState.BadRequest) => AddError<TModel>(expression.ToExpressionTarget(), message, state);
-
-        public Response<TModel> AddError<TModel>(string name, string message, ResponseState state = ResponseState.BadRequest)
-        {
-            TryAddError(name, message);
-            return Response.Fail<TModel>(this, state);
-        }
-
-        public Response<TModel> AddError<TModel>(EntityValidationState entityValidationState, ResponseState state = ResponseState.Unacceptable)
-            => AddError<TModel>(entityValidationState.PropertyName, entityValidationState.Message, state);
-
+        public Response GetResponse() => Response.Fail(this);
 
         public void Clear() => Errors.Clear();
 

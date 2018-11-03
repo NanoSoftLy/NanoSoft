@@ -29,7 +29,6 @@ namespace NanoSoft
         public void Dispose()
         {
             UnitOfWork.Dispose();
-            GC.SuppressFinalize(false);
         }
     }
 }

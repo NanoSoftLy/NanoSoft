@@ -145,7 +145,7 @@
     <value>You must input a valid date range.</value>
   </data>
   <data name="InvalidNumber" xml:space="preserve">
-    <value>You must input a valid number.</value>
+    <value>You must input a valid number in field {0}.</value>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
     <value>Please input a valid password.</value>

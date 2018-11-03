@@ -2,9 +2,11 @@
 using NanoSoft.Resources;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace NanoSoft
 {
+    [PublicAPI]
     public struct Response : IResponse
     {
         public static Response Success(string message) => new Response(ResponseState.Valid, message);
@@ -71,7 +73,7 @@ namespace NanoSoft
                 if (!string.IsNullOrWhiteSpace(_message))
                     return _message;
 
-                var errors = string.Join("\n", Errors.SelectMany(e => e.Value) ?? new List<string>());
+                var errors = string.Join("\n", Errors.SelectMany(e => e.Value));
 
                 return string.IsNullOrWhiteSpace(errors) ? _state.DisplayName() : errors;
             }
@@ -92,6 +94,15 @@ namespace NanoSoft
 
     public struct Response<TModel> : IResponse
     {
+        public static implicit operator Response(Response<TModel> response)
+        {
+            return response.InnerResponse;
+        }
+        public static implicit operator Response<TModel>(Response response)
+        {
+            return new Response<TModel>(response);
+        }
+        
         public Response(Response response)
         {
             InnerResponse = response;

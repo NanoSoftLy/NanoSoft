@@ -42,7 +42,7 @@ namespace NanoSoft.Extensions
         public static string ToTimeString(this TimeSpan time, string format = "tt hh:mm:ss")
         {
             if (time.Hours > 23)
-                throw new ArgumentOutOfRangeException(nameof(time), "time.Hours > 23");
+                throw new ArgumentOutOfRangeException(nameof(time), @"time.Hours > 23");
 
             return new DateTime(1, 1, 1, time.Hours, time.Minutes, time.Seconds).ToString(format);
         }

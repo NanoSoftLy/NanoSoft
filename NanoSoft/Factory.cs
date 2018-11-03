@@ -4,14 +4,16 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 
 namespace NanoSoft
 {
+    [PublicAPI]
     public abstract class Factory<TUnitOfWork, TObject>
         where TUnitOfWork : IDefaultUnitOfWork
         where TObject : class
     {
-        protected static readonly Faker Faker = new Faker();
+        protected readonly Faker Faker = new Faker();
         protected TUnitOfWork UnitOfWork { get; }
 
         protected Factory(TUnitOfWork unitOfWork)

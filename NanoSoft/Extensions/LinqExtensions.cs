@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace NanoSoft.Extensions
 {
@@ -32,6 +33,28 @@ namespace NanoSoft.Extensions
         {
             foreach (var item in enumerable)
                 action(item);
+        }
+        
+        public static List<T> AsList<T>(this IEnumerable<T> enumerable) => enumerable as List<T> ??
+                                                                           enumerable.ToList();
+        public static IList<T> AsIList<T>(this IEnumerable<T> enumerable) => enumerable as IList<T> ??
+                                                                             enumerable.ToList();
+        public static async Task<IList<T>> AsIListAsync<T>(this Task<IEnumerable<T>> enumerable)
+        {
+            var list = await enumerable;
+            return list as IList<T> ?? list.ToList();
+        }
+
+        public static void AddIfNotExisted<T>(this ICollection<T> collection, T element)
+        {
+            if(!collection.Contains(element))
+                collection.Add(element);
+        }
+
+        public static void AddIfNotExisted<T>(this ICollection<T> collection, T element, Func<T, bool> predicate)
+        {
+            if(!collection.All(predicate))
+                collection.Add(element);
         }
     }
 }

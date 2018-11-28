@@ -73,6 +73,33 @@ namespace NanoSoft
             return true;
         }
 
+        public async Task<bool> IsValidAsync(Func<TUserInfo, bool> policy, Guid id)
+        {
+            if (id == default(Guid))
+            {
+                _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
+                return false;
+            }
+
+            Result = await Repository.FindAsync(id, _includeRelated);
+
+            if (Result == null)
+            {
+                _response = NanoSoft.Response.Fail(ResponseState.NotFound);
+                return false;
+            }
+
+            if (policy != null && (User == null || !policy(User)))
+            {
+                _response = NanoSoft.Response.Fail(User == null
+                    ? ResponseState.Unauthorized
+                    : ResponseState.Forbidden);
+                return false;
+            }
+
+            return true;
+        }
+
         public Task<bool> IsValidAsync(object model, Func<TUserInfo, bool> policy)
         {
             if (policy != null && (User == null || !policy(User)))
@@ -109,6 +136,40 @@ namespace NanoSoft
             }
 
             if (policy != null && (User == null || !policy(User, Result)))
+            {
+                _response = NanoSoft.Response.Fail(User == null
+                    ? ResponseState.Unauthorized
+                    : ResponseState.Forbidden);
+                return false;
+            }
+
+            if (!Application.ModelState.IsValid(model))
+            {
+                _response = NanoSoft.Response.Fail(Application.ModelState);
+                return false;
+            }
+
+            return true;
+        }
+
+
+        public async Task<bool> IsValidAsync(object model, Func<TUserInfo, bool> policy, Guid id)
+        {
+            if (id == default(Guid))
+            {
+                _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
+                return false;
+            }
+
+            Result = await Repository.FindAsync(id, _includeRelated);
+
+            if (Result == null)
+            {
+                _response = NanoSoft.Response.Fail(ResponseState.NotFound);
+                return false;
+            }
+
+            if (policy != null && (User == null || !policy(User)))
             {
                 _response = NanoSoft.Response.Fail(User == null
                     ? ResponseState.Unauthorized

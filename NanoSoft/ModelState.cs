@@ -11,6 +11,13 @@ namespace NanoSoft
 {
     public class ModelState : IValidator
     {
+        private readonly bool _clearOnCheck;
+
+        public ModelState(bool clearOnCheck = false)
+        {
+            _clearOnCheck = clearOnCheck;
+        }
+
         public Dictionary<string, List<string>> Errors { get; } = new Dictionary<string, List<string>>();
 
         public Response AddError(Expression<Func<object, object>> expression, string message, ResponseState state = ResponseState.BadRequest) => AddError(expression.ToExpressionTarget(), message, state);
@@ -32,6 +39,9 @@ namespace NanoSoft
 
         public bool IsValid(object model)
         {
+            if (_clearOnCheck)
+                Clear();
+
             var context = new ValidationContext(model);
 
             ValidateProperties(model, context);

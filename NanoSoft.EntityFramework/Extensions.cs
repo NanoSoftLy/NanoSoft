@@ -69,7 +69,7 @@ namespace NanoSoft.EntityFramework
 
             var result = query.Skip(skipped)
                 .Take(size)
-                .Select(target.Compile())
+                .Select(target)
                 .ToList();
 
             return new Paginated<TResult>(result, current, size, total);
@@ -77,6 +77,35 @@ namespace NanoSoft.EntityFramework
 
         public static Paginated<TResult> Paginate<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
             => Paginate(query, request.PageSize, request.CurrentPage, target, startFrom);
+
+
+        public static IQueryable<TSource> Limit<TSource>(this IQueryable<TSource> query, int size, int current, StartFrom startFrom = StartFrom.FirstPage)
+        {
+            var total = query.Count();
+
+            var skipped = CalculateSkipped(total, size, current, startFrom);
+
+            return query.Skip(skipped)
+                .Take(size);
+        }
+
+        public static IQueryable<TSource> Limit<TSource>(this IQueryable<TSource> query, IPaginationRequest request, StartFrom startFrom = StartFrom.FirstPage)
+            => Limit(query, request.PageSize, request.CurrentPage, startFrom);
+
+
+        public static IQueryable<TResult> Limit<TSource, TResult>(this IQueryable<TSource> query, int size, int current, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
+        {
+            var total = query.Count();
+
+            var skipped = CalculateSkipped(total, size, current, startFrom);
+
+            return query.Skip(skipped)
+                .Take(size)
+                .Select(target);
+        }
+
+        public static IQueryable<TResult> Limit<TSource, TResult>(this IQueryable<TSource> query, IPaginationRequest request, Expression<Func<TSource, TResult>> target, StartFrom startFrom = StartFrom.FirstPage)
+            => Limit(query, request.PageSize, request.CurrentPage, target, startFrom);
 
 
         private static int CalculateSkipped(int total, int size, int current, StartFrom startFrom)

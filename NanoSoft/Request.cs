@@ -10,7 +10,7 @@ namespace NanoSoft
         where TUserInfo : IUserInfo
         where TApplication : Application<TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
     {
-        public Request(TApplication application, IRepository<TDomain> repository, bool includeRelated = false)
+        public Request(TApplication application, IReadOnlyRepository<TDomain> repository, bool includeRelated = false)
         {
             User = application.User;
             UnitOfWork = application.UnitOfWork;
@@ -25,7 +25,7 @@ namespace NanoSoft
         protected TUserInfo User { get; }
         protected TUnitOfWork UnitOfWork { get; }
         protected TApplication Application { get; }
-        protected IRepository<TDomain> Repository { get; }
+        protected IReadOnlyRepository<TDomain> Repository { get; }
         public TDomain Result { get; protected set; }
 
         public Response Response()

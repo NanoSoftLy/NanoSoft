@@ -4,17 +4,16 @@ using System.Threading.Tasks;
 
 namespace NanoSoft
 {
-    public abstract class Request<TApplication, TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
+    public abstract class Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
         where TUnitOfWork : IDisposable
         where TDomain : class
         where TUserInfo : IUserInfo
-        where TApplication : Application<TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
     {
-        public Request(TApplication application, IReadOnlyRepository<TDomain> repository, bool includeRelated = false)
+        public Request(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, IReadOnlyRepository<TDomain> repository, bool includeRelated = false)
         {
-            User = application.User;
-            UnitOfWork = application.UnitOfWork;
-            Application = application;
+            User = user;
+            UnitOfWork = unitOfWork;
+            ModelState = modelState;
             Repository = repository;
             _includeRelated = includeRelated;
         }
@@ -23,8 +22,8 @@ namespace NanoSoft
         private readonly bool _includeRelated;
 
         protected TUserInfo User { get; }
+        protected IValidator ModelState { get; }
         protected TUnitOfWork UnitOfWork { get; }
-        protected TApplication Application { get; }
         protected IReadOnlyRepository<TDomain> Repository { get; }
         public TDomain Result { get; protected set; }
 
@@ -110,9 +109,9 @@ namespace NanoSoft
                 return Task.FromResult(false);
             }
 
-            if (!Application.ModelState.IsValid(model))
+            if (!ModelState.IsValid(model))
             {
-                _response = NanoSoft.Response.Fail(Application.ModelState);
+                _response = NanoSoft.Response.Fail(ModelState);
                 return Task.FromResult(false);
             }
 
@@ -143,9 +142,9 @@ namespace NanoSoft
                 return false;
             }
 
-            if (!Application.ModelState.IsValid(model))
+            if (!ModelState.IsValid(model))
             {
-                _response = NanoSoft.Response.Fail(Application.ModelState);
+                _response = NanoSoft.Response.Fail(ModelState);
                 return false;
             }
 
@@ -177,9 +176,9 @@ namespace NanoSoft
                 return false;
             }
 
-            if (!Application.ModelState.IsValid(model))
+            if (!ModelState.IsValid(model))
             {
-                _response = NanoSoft.Response.Fail(Application.ModelState);
+                _response = NanoSoft.Response.Fail(ModelState);
                 return false;
             }
 

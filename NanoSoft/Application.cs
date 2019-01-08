@@ -7,13 +7,13 @@ namespace NanoSoft
         where TUnitOfWork : IDisposable
         where TUserInfo : IUserInfo
     {
-        protected Application(ApplicationOptions<TUnitOfWork, TUserInfo, TSettings, TCompanyInfo> options)
+        protected Application(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
         {
-            User = options.User;
-            Settings = options.Settings;
-            CompanyInfo = options.CompanyInfo;
-            UnitOfWork = options.UnitOfWork;
-            ModelState = options.Validator;
+            User = user;
+            ModelState = modelState;
+            Settings = settings;
+            CompanyInfo = companyInfo;
+            UnitOfWork = unitOfWork;
         }
 
         public TUserInfo User { get; }

@@ -2,30 +2,31 @@
 
 namespace NanoSoft
 {
-    public abstract class Business<TApplication, TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo, TRequest>
+    public abstract class Business<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo, TRequest>
         where TUnitOfWork : IDisposable
         where TDomain : class
         where TUserInfo : IUserInfo
-        where TApplication : Application<TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
-        where TRequest : Request<TApplication, TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
+        where TRequest : Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
     {
-        protected Business(TApplication application)
+        protected Business(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
         {
-            Application = application;
+            User = user;
+            ModelState = modelState;
+            Settings = settings;
+            CompanyInfo = companyInfo;
+            UnitOfWork = unitOfWork;
         }
-
-        public TApplication Application { get; }
 
         public abstract TRequest Request { get; }
 
-        public TUserInfo User => Application.User;
+        public TUserInfo User { get; }
 
-        public IValidator ModelState => Application.ModelState;
+        public IValidator ModelState { get; }
 
-        public TSettings Settings => Application.Settings;
+        public TSettings Settings { get; }
 
-        public TCompanyInfo CompanyInfo => Application.CompanyInfo;
+        public TCompanyInfo CompanyInfo { get; }
 
-        public TUnitOfWork UnitOfWork => Application.UnitOfWork;
+        public TUnitOfWork UnitOfWork { get; }
     }
 }

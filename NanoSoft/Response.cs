@@ -1,5 +1,6 @@
 ﻿using JetBrains.Annotations;
 using NanoSoft.Extensions;
+using NanoSoft.Repository;
 using NanoSoft.Resources;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,13 @@ namespace NanoSoft
         public static Response Fail(IValidator validator, ResponseState state = ResponseState.BadRequest)
             => new Response(validator.Errors, state);
 
+        public static Response AddError(EntityValidationState entityValidationState, ResponseState state = ResponseState.Unacceptable)
+            => new Response(new Dictionary<string, List<string>>()
+            {
+                {
+                    entityValidationState.PropertyName, new List<string>(){ entityValidationState.Message }
+                }
+            }, state);
 
         public static Response<TModel> Success<TModel>(TModel model) => new Response<TModel>(model, Success(null));
         public static Response<TModel> Success<TModel>(TModel model, string message) => new Response<TModel>(model, Success(message));

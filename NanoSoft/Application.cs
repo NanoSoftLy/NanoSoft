@@ -26,7 +26,7 @@ namespace NanoSoft
 
         public IValidator ModelState { get; }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             UnitOfWork.Dispose();
         }

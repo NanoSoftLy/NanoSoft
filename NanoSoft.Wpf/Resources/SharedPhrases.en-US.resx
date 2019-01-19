@@ -243,4 +243,13 @@
   <data name="ExpireDate" xml:space="preserve">
     <value>Application Expire Date</value>
   </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>Company Info</value>
+  </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>Main Settings</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>System Settings</value>
+  </data>
 </root>

@@ -97,6 +97,15 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to بيانات الجهة.
+        /// </summary>
+        public static string CompanyInfo {
+            get {
+                return ResourceManager.GetString("CompanyInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to هل أنت متأكد من أنك تريد المتابعة ؟.
         /// </summary>
         public static string Confirm {
@@ -268,6 +277,15 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الإعدادات الرئيسية.
+        /// </summary>
+        public static string MainSettings {
+            get {
+                return ResourceManager.GetString("MainSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to جديد.
         /// </summary>
         public static string New {
@@ -381,6 +399,15 @@ namespace NanoSoft.Wpf.Resources {
         public static string SuccessAndAlertRestart {
             get {
                 return ResourceManager.GetString("SuccessAndAlertRestart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to إعدادات المنظومة.
+        /// </summary>
+        public static string SystemSettings {
+            get {
+                return ResourceManager.GetString("SystemSettings", resourceCulture);
             }
         }
         

@@ -129,6 +129,9 @@
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
+  <data name="CompanyInfo" xml:space="preserve">
+    <value>بيانات الجهة</value>
+  </data>
   <data name="Confirm" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد المتابعة ؟</value>
   </data>
@@ -186,6 +189,9 @@
   <data name="Logout" xml:space="preserve">
     <value>تسجيل الخروج</value>
   </data>
+  <data name="MainSettings" xml:space="preserve">
+    <value>الإعدادات الرئيسية</value>
+  </data>
   <data name="New" xml:space="preserve">
     <value>جديد</value>
   </data>
@@ -224,6 +230,9 @@
   </data>
   <data name="SuccessAndAlertRestart" xml:space="preserve">
     <value>تم التعديل بنجاح, لن يتم تغيير اللغة إلا بعد إعادة تشغيل البرنامج.</value>
+  </data>
+  <data name="SystemSettings" xml:space="preserve">
+    <value>إعدادات المنظومة</value>
   </data>
   <data name="TwentyFive" xml:space="preserve">
     <value>25</value>

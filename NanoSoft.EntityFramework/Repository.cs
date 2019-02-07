@@ -10,9 +10,9 @@ namespace NanoSoft.EntityFramework
 {
     public abstract class Repository<TDomain> : IRepository<TDomain> where TDomain : class
     {
-        private readonly NanoSoftDbContext _context;
+        private readonly DbContext _context;
 
-        protected Repository(NanoSoftDbContext context)
+        protected Repository(DbContext context)
         {
             _context = context;
         }

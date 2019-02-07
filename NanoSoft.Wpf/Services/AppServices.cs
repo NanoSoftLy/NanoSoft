@@ -75,7 +75,7 @@ namespace NanoSoft.Wpf.Services
                 || storedSettings == null
                 || storedCompanyInfo == null
                 || (expire == null
-                || expire >= DateTime.UtcNow))
+                || expire >= DateTime.Now))
                 return null;
 
             return new StoredProperties<TUser, TSettings, TCompanyInfo>()
@@ -92,7 +92,7 @@ namespace NanoSoft.Wpf.Services
             dictionary["user"] = properties.User;
             dictionary["settings"] = properties.Settings;
             dictionary["companyInfo"] = properties.CompanyInfo;
-            dictionary["expire"] = DateTime.UtcNow.AddMinutes(5);
+            dictionary["expire"] = DateTime.Now.AddMinutes(5);
         }
 
 

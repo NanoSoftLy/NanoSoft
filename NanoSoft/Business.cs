@@ -5,7 +5,7 @@ namespace NanoSoft
     public abstract class Business<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo, TRequest>
         where TUnitOfWork : IDisposable
         where TDomain : class
-        where TUserInfo : IUserInfo
+        where TUserInfo : IUser
         where TRequest : Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
     {
         protected Business(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)

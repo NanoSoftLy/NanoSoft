@@ -5,7 +5,7 @@ namespace NanoSoft
     public abstract class Application<TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
         : IApplication<TUserInfo, TSettings, TCompanyInfo>
         where TUnitOfWork : IDisposable
-        where TUserInfo : IUserInfo
+        where TUserInfo : IUser
     {
         protected Application(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
         {

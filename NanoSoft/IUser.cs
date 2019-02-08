@@ -2,7 +2,7 @@
 
 namespace NanoSoft
 {
-    public interface IUserInfo
+    public interface IUser
     {
         Guid Id { get; }
         string Name { get; }

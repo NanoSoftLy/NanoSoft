@@ -7,7 +7,7 @@ namespace NanoSoft
     public abstract class Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
         where TUnitOfWork : IDisposable
         where TDomain : class
-        where TUserInfo : IUserInfo
+        where TUserInfo : IUser
     {
         public Request(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, IReadOnlyRepository<TDomain> repository, bool includeRelated = false)
         {

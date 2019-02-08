@@ -1,6 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NanoSoft.Repository;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,13 @@ namespace NanoSoft.EntityFramework
     public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations
         where TEntity : class
     {
+        public static void TrackEntity<T>(EntityTypeBuilder<T> builder)
+            where T : class
+        {
+            builder.Property<DateTime?>(CreatedAt);
+            builder.Property<DateTime?>(ModifiedAt);
+        }
+
         [NotNull]
         public virtual EntityValidationState IsValid(IEnumerable<EntityEntry<TEntity>> entityEntries, TDbContext context)
         {
@@ -60,10 +68,26 @@ namespace NanoSoft.EntityFramework
 
 
         protected virtual EntityValidationState ValidToAdd(EntityEntry<TEntity> entityEntry, TDbContext context)
-            => EntityValidationState.Valid;
+        {
+            var createdAt = entityEntry.Property<DateTime?>(CreatedAt);
+
+            if (createdAt == null)
+                return EntityValidationState.Valid;
+
+            createdAt.CurrentValue = DateTime.UtcNow;
+            return EntityValidationState.Valid;
+        }
 
         protected virtual EntityValidationState ValidToModify(EntityEntry<TEntity> entityEntry, TDbContext context)
-            => EntityValidationState.Valid;
+        {
+            var modifiedAt = entityEntry.Property<DateTime?>(ModifiedAt);
+
+            if (modifiedAt == null)
+                return EntityValidationState.Valid;
+
+            modifiedAt.CurrentValue = DateTime.UtcNow;
+            return EntityValidationState.Valid;
+        }
 
         protected virtual EntityValidationState ValidToDelete(EntityEntry<TEntity> entityEntry, TDbContext context)
             => EntityValidationState.Valid;
@@ -72,8 +96,11 @@ namespace NanoSoft.EntityFramework
     public class SharedConfigurations
     {
         public const string DecimalField = "decimal(18, 3)";
+        public const string DateField = "Date";
         public const int SmallField = 255;
         public const int MidField = 1000;
         public const int BigField = 4000;
+        public const string CreatedAt = "_CreatedAt";
+        public const string ModifiedAt = "_ModifiedAt";
     }
 }

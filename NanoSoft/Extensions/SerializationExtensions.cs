@@ -14,13 +14,17 @@ namespace NanoSoft.Extensions
 
         [NotNull]
         public static string ToSerializedObject([NotNull] this object obj, Format format = Format.Normal)
-            => format == Format.Normal
-                ? JsonConvert.SerializeObject(obj)
-                : JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonSerializerSettings()
-                {
-                    ContractResolver = new CamelCasePropertyNamesContractResolver()
-                });
+        {
+            var setttings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
 
+            return format == Format.Normal
+                           ? JsonConvert.SerializeObject(obj, Formatting.None, setttings)
+                           : JsonConvert.SerializeObject(obj, Formatting.Indented, setttings);
+        }
 
         [CanBeNull]
         public static Task<TObject> ToDeserializedObjectAsync<TObject>([NotNull] this string serializedObject)

@@ -69,7 +69,7 @@ namespace NanoSoft.EntityFramework
 
         protected virtual EntityValidationState ValidToAdd(EntityEntry<TEntity> entityEntry, TDbContext context)
         {
-            var createdAt = entityEntry.Property<DateTime?>(CreatedAt);
+            var createdAt = entityEntry.Properties.FirstOrDefault(p => p.Metadata.Name == CreatedAt);
 
             if (createdAt == null)
                 return EntityValidationState.Valid;
@@ -80,7 +80,7 @@ namespace NanoSoft.EntityFramework
 
         protected virtual EntityValidationState ValidToModify(EntityEntry<TEntity> entityEntry, TDbContext context)
         {
-            var modifiedAt = entityEntry.Property<DateTime?>(ModifiedAt);
+            var modifiedAt = entityEntry.Properties.FirstOrDefault(p => p.Metadata.Name == ModifiedAt);
 
             if (modifiedAt == null)
                 return EntityValidationState.Valid;

@@ -90,7 +90,9 @@ namespace NanoSoft.EntityFramework
         }
 
         protected virtual EntityValidationState ValidToDelete(EntityEntry<TEntity> entityEntry, TDbContext context)
-            => EntityValidationState.Valid;
+        {
+            return EntityValidationState.Valid;
+        }
     }
 
     public class SharedConfigurations

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -12,11 +13,20 @@ namespace NanoSoft.EntityFramework
         {
             var total = await query.CountAsync();
 
-            var skipped = CalculateSkipped(total, size, current, startFrom);
+            List<TSource> result;
 
-            var result = await query.Skip(skipped)
-                .Take(size)
-                .ToListAsync();
+            if (total > 0)
+            {
+                var skipped = CalculateSkipped(total, size, current, startFrom);
+
+                result = await query.Skip(skipped)
+                    .Take(size)
+                    .ToListAsync();
+            }
+            else
+            {
+                result = await query.ToListAsync();
+            }
 
             return new Paginated<TSource>(result, current, size, total);
         }
@@ -29,12 +39,23 @@ namespace NanoSoft.EntityFramework
         {
             var total = await query.CountAsync();
 
-            var skipped = CalculateSkipped(total, size, current, startFrom);
+            List<TResult> result;
 
-            var result = await query.Skip(skipped)
-                .Take(size)
-                .Select(target)
-                .ToListAsync();
+            if (total > 0)
+            {
+                var skipped = CalculateSkipped(total, size, current, startFrom);
+
+                result = await query.Skip(skipped)
+                    .Take(size)
+                    .Select(target)
+                    .ToListAsync();
+            }
+            else
+            {
+                result = await query.Select(target)
+                                .ToListAsync();
+            }
+
 
             return new Paginated<TResult>(result, current, size, total);
         }
@@ -48,11 +69,20 @@ namespace NanoSoft.EntityFramework
         {
             var total = query.Count();
 
-            var skipped = CalculateSkipped(total, size, current, startFrom);
+            List<TSource> result;
 
-            var result = query.Skip(skipped)
-                .Take(size)
-                .ToList();
+            if (total > 0)
+            {
+                var skipped = CalculateSkipped(total, size, current, startFrom);
+
+                result = query.Skip(skipped)
+                    .Take(size)
+                    .ToList();
+            }
+            else
+            {
+                result = query.ToList();
+            }
 
             return new Paginated<TSource>(result, current, size, total);
         }
@@ -65,12 +95,21 @@ namespace NanoSoft.EntityFramework
         {
             var total = query.Count();
 
-            var skipped = CalculateSkipped(total, size, current, startFrom);
+            List<TResult> result;
 
-            var result = query.Skip(skipped)
-                .Take(size)
-                .Select(target)
-                .ToList();
+            if (total > 0)
+            {
+                var skipped = CalculateSkipped(total, size, current, startFrom);
+
+                result = query.Skip(skipped)
+                    .Take(size)
+                    .Select(target)
+                    .ToList();
+            }
+            else
+            {
+                result = query.Select(target).ToList();
+            }
 
             return new Paginated<TResult>(result, current, size, total);
         }

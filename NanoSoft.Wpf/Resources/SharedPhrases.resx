@@ -126,6 +126,9 @@
   <data name="Arabic" xml:space="preserve">
     <value>عربي</value>
   </data>
+  <data name="BackToIndex" xml:space="preserve">
+    <value>عودة للقائمة</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>إلغاء</value>
   </data>
@@ -135,11 +138,17 @@
   <data name="Confirm" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد المتابعة ؟</value>
   </data>
+  <data name="ConfirmBack" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد إغلاق الصفحة والعودة إلى القائمة ؟</value>
+  </data>
   <data name="ConfirmDelete" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد حذف هذا السجل ؟</value>
   </data>
   <data name="ConfirmEmpty" xml:space="preserve">
     <value>سيتم إفراغ جميع الحقول, هل أنت متأكد من أنك تريد المتابعة ؟</value>
+  </data>
+  <data name="ConfirmExit" xml:space="preserve">
+    <value>هل أنت متأكد من أنك تريد إغلاق البرنامج ؟</value>
   </data>
   <data name="ConfirmLogout" xml:space="preserve">
     <value>هل أنت متأكد من أنك تريد تسجيل الخروج ؟</value>

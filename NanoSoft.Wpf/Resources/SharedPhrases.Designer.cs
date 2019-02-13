@@ -88,6 +88,15 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to عودة للقائمة.
+        /// </summary>
+        public static string BackToIndex {
+            get {
+                return ResourceManager.GetString("BackToIndex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to إلغاء.
         /// </summary>
         public static string Cancel {
@@ -115,6 +124,15 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to هل أنت متأكد من أنك تريد إغلاق الصفحة والعودة إلى القائمة ؟.
+        /// </summary>
+        public static string ConfirmBack {
+            get {
+                return ResourceManager.GetString("ConfirmBack", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to هل أنت متأكد من أنك تريد حذف هذا السجل ؟.
         /// </summary>
         public static string ConfirmDelete {
@@ -129,6 +147,15 @@ namespace NanoSoft.Wpf.Resources {
         public static string ConfirmEmpty {
             get {
                 return ResourceManager.GetString("ConfirmEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to هل أنت متأكد من أنك تريد إغلاق البرنامج ؟.
+        /// </summary>
+        public static string ConfirmExit {
+            get {
+                return ResourceManager.GetString("ConfirmExit", resourceCulture);
             }
         }
         

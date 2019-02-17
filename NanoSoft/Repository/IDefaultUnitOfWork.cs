@@ -14,6 +14,10 @@ namespace NanoSoft.Repository
         Task CompleteAsync();
 
         Task<bool> TryCompleteAsync();
+
+        Task CompleteAsync(bool enableValidation);
+
+        Task<bool> TryCompleteAsync(bool enableValidation);
     }
 
     [PublicAPI]

@@ -1,10 +1,10 @@
 ﻿using Bogus;
+using JetBrains.Annotations;
 using NanoSoft.Repository;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 
 namespace NanoSoft
 {
@@ -59,7 +59,7 @@ namespace NanoSoft
             {
                 obj = Make();
                 await SaveAsync(obj);
-                await UnitOfWork.CompleteAsync();
+                await CompleteAsync();
             }
             return obj;
         }
@@ -70,9 +70,15 @@ namespace NanoSoft
             using (UnitOfWork)
             {
                 await SaveRangeAsync(list);
-                await UnitOfWork.CompleteAsync();
+                await CompleteAsync();
             }
             return list;
+        }
+
+
+        protected virtual Task CompleteAsync()
+        {
+            return UnitOfWork.CompleteAsync();
         }
     }
 }

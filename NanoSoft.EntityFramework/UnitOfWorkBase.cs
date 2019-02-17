@@ -40,6 +40,23 @@ namespace NanoSoft.EntityFramework
             return ValidationState.IsValid;
         }
 
+        public Task CompleteAsync(bool enableValidation)
+        {
+            if (enableValidation)
+                return CompleteAsync();
+
+            return _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> TryCompleteAsync(bool enableValidation)
+        {
+            if (enableValidation)
+                return await TryCompleteAsync();
+
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public void Dispose()
         {
             _context.Dispose();

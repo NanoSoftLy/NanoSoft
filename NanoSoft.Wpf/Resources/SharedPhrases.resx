@@ -255,6 +255,9 @@
   <data name="Users" xml:space="preserve">
     <value>المستخدمين</value>
   </data>
+  <data name="UsersActivities" xml:space="preserve">
+    <value>أنشطة المستخدمين</value>
+  </data>
   <data name="View" xml:space="preserve">
     <value>مشاهدة</value>
   </data>

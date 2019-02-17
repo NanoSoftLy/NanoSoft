@@ -261,4 +261,7 @@
   <data name="ConfirmExit" xml:space="preserve">
     <value>Are you sure you want to exit the application ?</value>
   </data>
+  <data name="UsersActivities" xml:space="preserve">
+    <value>Users Activities</value>
+  </data>
 </root>

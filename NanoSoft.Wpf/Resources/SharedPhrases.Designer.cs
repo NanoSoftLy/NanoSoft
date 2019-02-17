@@ -475,6 +475,15 @@ namespace NanoSoft.Wpf.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أنشطة المستخدمين.
+        /// </summary>
+        public static string UsersActivities {
+            get {
+                return ResourceManager.GetString("UsersActivities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مشاهدة.
         /// </summary>
         public static string View {

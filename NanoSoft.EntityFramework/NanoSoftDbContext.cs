@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NanoSoft.EntityFramework
 {
-    public abstract class NanoSoftDbContext : DbContext
+    public abstract class NanoSoftDbContext : DbContext, INanoSoftDbContext
     {
         protected NanoSoftDbContext()
         {

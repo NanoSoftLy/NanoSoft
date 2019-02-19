@@ -10,18 +10,18 @@ namespace NanoSoft.EntityFramework
 {
     public abstract class Repository<TDomain> : IRepository<TDomain> where TDomain : class
     {
-        private readonly DbContext _context;
+        private readonly IDbContext _context;
 
-        protected Repository(DbContext context)
+        protected Repository(IDbContext context)
         {
             _context = context;
         }
 
-        public virtual async Task AddAsync(TDomain domain) => await _context.AddAsync(domain);
+        public virtual async Task AddAsync(TDomain domain) => await _context.Set<TDomain>().AddAsync(domain);
 
-        public virtual async Task AddRangeAsync(IEnumerable<TDomain> domains) => await _context.AddRangeAsync(domains);
+        public virtual async Task AddRangeAsync(IEnumerable<TDomain> domains) => await _context.Set<TDomain>().AddRangeAsync(domains);
 
-        public virtual async Task<TDomain> FindAsync(object id, bool includeRelated = false) => await _context.FindAsync<TDomain>(id);
+        public virtual async Task<TDomain> FindAsync(object id, bool includeRelated = false) => await _context.Set<TDomain>().FindAsync(id);
 
         public virtual async Task<List<TDomain>> GetAllAsync() => await _context.Set<TDomain>().ToListAsync();
 
@@ -31,13 +31,13 @@ namespace NanoSoft.EntityFramework
         public virtual async Task RemoveAsync(TDomain domain)
         {
             await Task.CompletedTask;
-            _context.Remove(domain);
+            _context.Set<TDomain>().Remove(domain);
         }
 
         public virtual async Task RemoveRangeAsync(IEnumerable<TDomain> domains)
         {
             await Task.CompletedTask;
-            _context.RemoveRange(domains);
+            _context.Set<TDomain>().RemoveRange(domains);
         }
     }
 }

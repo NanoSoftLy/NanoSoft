@@ -6,9 +6,9 @@ namespace NanoSoft.EntityFramework
 {
     public abstract class UnitOfWorkBase : IDefaultUnitOfWork
     {
-        private readonly NanoSoftDbContext _context;
+        private readonly INanoSoftDbContext _context;
 
-        protected UnitOfWorkBase(NanoSoftDbContext context)
+        protected UnitOfWorkBase(INanoSoftDbContext context)
         {
             _context = context;
         }

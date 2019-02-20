@@ -9,9 +9,15 @@ using System.Linq;
 
 namespace NanoSoft.EntityFramework
 {
-    public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations
+    public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations, IEntityTypeConfiguration<TEntity>
         where TEntity : class
     {
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
+        {
+
+        }
+
+
         public static void TrackEntity<T>(EntityTypeBuilder<T> builder)
             where T : class
         {

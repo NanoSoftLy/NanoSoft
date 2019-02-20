@@ -9,15 +9,9 @@ using System.Linq;
 
 namespace NanoSoft.EntityFramework
 {
-    public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations, IEntityTypeConfiguration<TEntity>
+    public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations<TEntity>
         where TEntity : class
     {
-        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
-        {
-
-        }
-
-
         public static void TrackEntity<T>(EntityTypeBuilder<T> builder)
             where T : class
         {
@@ -98,6 +92,15 @@ namespace NanoSoft.EntityFramework
         protected virtual EntityValidationState ValidToDelete(EntityEntry<TEntity> entityEntry, TDbContext context)
         {
             return EntityValidationState.Valid;
+        }
+    }
+
+    public class SharedConfigurations<TEntity> : SharedConfigurations, IEntityTypeConfiguration<TEntity>
+        where TEntity : class
+    {
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
+        {
+
         }
     }
 

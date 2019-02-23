@@ -18,6 +18,8 @@ namespace NanoSoft.IdentityServer
             _identityDbContext = identityDbContext;
         }
 
+        public ModelState ModelState { get; } = new ModelState();
+
         public async Task<Response<List<KeyValuePair>>> GetAllAsync()
         {
             var result = await _identityDbContext.Identities
@@ -30,12 +32,15 @@ namespace NanoSoft.IdentityServer
             return Response.Success(result);
         }
 
-        public async Task<Response<IdentityUser>> LoginAsync(string name, string password)
+        public async Task<Response<IdentityUser>> LoginAsync(LoginModel model)
         {
-            var hashedPassword = password.ToBCryptHash(Salt);
+            if (!ModelState.IsValid(model))
+                return ModelState.GetResponse();
+
+            var hashedPassword = model.Password.ToBCryptHash(Salt);
 
             var identity = await _identityDbContext.Identities
-                .FirstOrDefaultAsync(i => i.Name == name && i.Password == hashedPassword);
+                .FirstOrDefaultAsync(i => i.Name == model.Name && i.Password == hashedPassword);
 
             if (identity == null)
             {

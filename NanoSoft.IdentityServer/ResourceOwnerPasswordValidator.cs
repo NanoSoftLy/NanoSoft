@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
+using NanoSoft.Identity;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,7 +21,11 @@ namespace NanoSoft.IdentityServer
         {
             try
             {
-                var response = await _service.LoginAsync(context.UserName, context.Password);
+                var response = await _service.LoginAsync(new LoginModel()
+                {
+                    Name = context.UserName,
+                    Password = context.Password
+                });
 
                 switch (response.State)
                 {

@@ -6,14 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace NanoSoft.IdentityServer
+namespace NanoSoft.EntityFramework.Identity
 {
-    public class IdentityService : IIdentityService<IdentityUser>
+    public class IdentityService<TIdentityContext, TIdentityUser> : IIdentityService
+        where TIdentityContext : NanoSoftIdentityDbContext<TIdentityUser>
+        where TIdentityUser : BaseIdentityUser, new()
     {
-        private readonly IdentityDbContext _identityDbContext;
+        private readonly TIdentityContext _identityDbContext;
         public const string Salt = "$2a$11$HFUkCwXa0DjXlj0QaSE9Ne";
 
-        public IdentityService(IdentityDbContext identityDbContext)
+        public IdentityService(TIdentityContext identityDbContext)
         {
             _identityDbContext = identityDbContext;
         }
@@ -25,14 +27,14 @@ namespace NanoSoft.IdentityServer
             var result = await _identityDbContext.Identities
                            .Select(i => new KeyValuePair()
                            {
-                               Key = i.UserId,
+                               Key = i.Id,
                                Value = i.Name
                            }).ToListAsync();
 
             return Response.Success(result);
         }
 
-        public async Task<Response<IdentityUser>> LoginAsync(LoginModel model)
+        public async Task<Response<TIdentityUser>> LoginAsync(LoginModel model)
         {
             if (!ModelState.IsValid(model))
                 return ModelState.GetResponse();
@@ -51,53 +53,42 @@ namespace NanoSoft.IdentityServer
             return Response.Success(identity);
         }
 
-        public async Task<Response<string>> GetIdentityNameByIdAsync(Guid userId)
+
+        public async Task<Response> UpdateIdentityAsync(Guid id, InputModel model)
         {
+            if (!ModelState.IsValid(model))
+                return ModelState.GetResponse();
+
             var identity = await _identityDbContext.Identities
-                           .FirstOrDefaultAsync(i => i.UserId == userId);
+                           .FirstOrDefaultAsync(i => i.Id == id);
 
             if (identity == null)
                 return Response.Fail(ResponseState.NotFound);
 
-            return Response.Success<string>(identity.Name);
-        }
+            var hashedPassword = model.Password.ToBCryptHash(Salt);
 
-        public async Task<Response> TryUpdateIdentityNameAsync(Guid userId, string name, string password)
-        {
-            var identity = await _identityDbContext.Identities
-                           .FirstOrDefaultAsync(i => i.UserId == userId);
-
-            if (identity == null)
-                return Response.Fail(ResponseState.NotFound);
-
-            var hashedPassword = password.ToBCryptHash(Salt);
-
-            identity.Name = name;
+            identity.Name = model.Name;
             identity.Password = hashedPassword;
 
             var state = await _identityDbContext.ValidatableSaveChangesAsync();
 
             if (!state.IsValid)
-                return Response.Fail(ResponseState.Unacceptable, state.Message);
+                return Response.AddError(state);
 
             return Response.SuccessEdit();
         }
 
-        public async Task<Response<string>> CreateIdentityAsync(Guid userId, string name)
+        public async Task<Response> CreateIdentityAsync(InputModel model)
         {
-            var identity = await _identityDbContext.Identities
-                           .FirstOrDefaultAsync(i => i.UserId == userId);
+            if (!ModelState.IsValid(model))
+                return ModelState.GetResponse();
 
-            if (identity != null)
-                return Response.SuccessCreate(identity.Name);
+            var hashedPassword = model.Password.ToBCryptHash(Salt);
 
-            var hashedPassword = "12345".ToBCryptHash(Salt);
-
-            identity = new IdentityUser()
+            var identity = new TIdentityUser()
             {
-                UserId = userId,
                 Id = Guid.NewGuid(),
-                Name = name,
+                Name = model.Name,
                 Password = hashedPassword
             };
 
@@ -106,15 +97,9 @@ namespace NanoSoft.IdentityServer
             var state = await _identityDbContext.ValidatableSaveChangesAsync();
 
             if (!state.IsValid)
-            {
-                identity.Name = Guid.NewGuid().ToString();
-                state = await _identityDbContext.ValidatableSaveChangesAsync();
-            }
+                return Response.AddError(state);
 
-            if (!state.IsValid)
-                throw new Exception("Identity Creation Failed !");
-
-            return Response.SuccessCreate(identity.Name);
+            return Response.SuccessCreate();
         }
 
         public Task<bool> AnyAsync()
@@ -127,10 +112,10 @@ namespace NanoSoft.IdentityServer
             _identityDbContext.Dispose();
         }
 
-        public async Task<Response> DeleteIdentityAsync(Guid userId)
+        public async Task<Response> DeleteIdentityAsync(Guid id)
         {
             var identity = await _identityDbContext.Identities
-                           .FirstOrDefaultAsync(i => i.UserId == userId);
+                           .FirstOrDefaultAsync(i => i.Id == id);
 
             if (identity == null)
                 return Response.Fail(ResponseState.NotFound);
@@ -140,7 +125,7 @@ namespace NanoSoft.IdentityServer
             var state = await _identityDbContext.ValidatableSaveChangesAsync();
 
             if (!state.IsValid)
-                return Response.Fail(ResponseState.Unacceptable, state.Message);
+                return Response.AddError(state);
 
             return Response.SuccessDelete();
         }

@@ -32,7 +32,7 @@ namespace NanoSoft.IdentityServer
                 o.UseSqlServer(Configuration.GetConnectionString("IdentityDb")
             ));
 
-            services.AddScoped<IdentityService>();
+            //services.AddScoped<IdentityService>();
 
             services.AddMvc();
 

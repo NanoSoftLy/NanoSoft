@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace NanoSoft.IdentityServer.Controllers
 {
@@ -9,24 +7,24 @@ namespace NanoSoft.IdentityServer.Controllers
     [ApiController]
     public class IdentitiesController : ControllerBase
     {
-        private readonly IdentityService _service;
+        //private readonly IdentityService<IdentityDbContext, IdentityUser> _service;
 
-        public IdentitiesController(IdentityService service)
-        {
-            _service = service;
-        }
+        //public IdentitiesController(IdentityService service)
+        //{
+        //    _service = service;
+        //}
 
-        [HttpPost("seed")]
-        public async Task<ActionResult> SeedAsync([FromBody] IdentityModel model)
-        {
-            Console.WriteLine("seeding");
+        //[HttpPost("seed")]
+        //public async Task<ActionResult> SeedAsync([FromBody] IdentityModel model)
+        //{
+        //    Console.WriteLine("seeding");
 
-            if (await _service.AnyAsync())
-                return BadRequest();
+        //    if (await _service.AnyAsync())
+        //        return BadRequest();
 
-            await _service.CreateIdentityAsync(model.UserId, "nanosoft");
+        //    await _service.CreateIdentityAsync(model.UserId, "nanosoft");
 
-            return Ok();
-        }
+        //    return Ok();
+        //}
     }
 }

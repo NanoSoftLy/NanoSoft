@@ -1,5 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Validation;
+using NanoSoft.EntityFramework.Identity;
 using NanoSoft.Identity;
 using System;
 using System.Security.Claims;
@@ -9,9 +10,9 @@ namespace NanoSoft.IdentityServer
 {
     public class ResourceOwnerPasswordValidator : IResourceOwnerPasswordValidator
     {
-        private readonly IdentityService _service;
+        private readonly IdentityService<IdentityDbContext, IdentityUser> _service;
 
-        public ResourceOwnerPasswordValidator(IdentityService service)
+        public ResourceOwnerPasswordValidator(IdentityService<IdentityDbContext, IdentityUser> service)
         {
             _service = service;
         }
@@ -31,7 +32,7 @@ namespace NanoSoft.IdentityServer
                 {
                     case ResponseState.Valid:
                         context.Result = new GrantValidationResult(
-                            subject: response.Model.UserId.ToString(),
+                            subject: response.Model.Id.ToString(),
                             authenticationMethod: "custom",
                             claims: GetUserClaims(response.Model));
                         return;
@@ -53,7 +54,7 @@ namespace NanoSoft.IdentityServer
             return new Claim[]
             {
                 new Claim(ClaimTypes.Name, result.Name),
-                new Claim(ClaimTypes.NameIdentifier, result.UserId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, result.Id.ToString()),
             };
         }
     }

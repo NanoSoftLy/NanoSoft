@@ -2,16 +2,17 @@
 
 namespace NanoSoft
 {
-    public abstract class Business<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo, TRequest>
+    public abstract class Business<TDomain, TUnitOfWork, TUserInfo, TIdentityService, TSettings, TCompanyInfo, TRequest>
         where TUnitOfWork : IDisposable
         where TDomain : class
         where TUserInfo : IUser
         where TRequest : Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
     {
-        protected Business(TUnitOfWork unitOfWork, TUserInfo user, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
+        protected Business(TUnitOfWork unitOfWork, TUserInfo user, TIdentityService identityService, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
         {
             User = user;
             ModelState = modelState;
+            IdentityService = identityService;
             Settings = settings;
             CompanyInfo = companyInfo;
             UnitOfWork = unitOfWork;
@@ -20,6 +21,8 @@ namespace NanoSoft
         public abstract TRequest Request { get; }
 
         public TUserInfo User { get; }
+
+        public TIdentityService IdentityService { get; }
 
         public IValidator ModelState { get; }
 

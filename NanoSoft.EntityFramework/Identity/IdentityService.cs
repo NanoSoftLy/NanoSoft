@@ -54,7 +54,7 @@ namespace NanoSoft.EntityFramework.Identity
         }
 
 
-        public async Task<Response> UpdateIdentityAsync(Guid id, InputModel model)
+        public async Task<Response<BaseIdentityUser>> UpdateIdentityAsync(Guid id, InputModel model)
         {
             if (!ModelState.IsValid(model))
                 return ModelState.GetResponse();
@@ -75,10 +75,10 @@ namespace NanoSoft.EntityFramework.Identity
             if (!state.IsValid)
                 return Response.AddError(state);
 
-            return Response.SuccessEdit();
+            return Response.SuccessEdit<BaseIdentityUser>(identity);
         }
 
-        public async Task<Response> CreateIdentityAsync(InputModel model)
+        public async Task<Response<BaseIdentityUser>> CreateIdentityAsync(InputModel model)
         {
             if (!ModelState.IsValid(model))
                 return ModelState.GetResponse();
@@ -99,7 +99,7 @@ namespace NanoSoft.EntityFramework.Identity
             if (!state.IsValid)
                 return Response.AddError(state);
 
-            return Response.SuccessCreate();
+            return Response.SuccessCreate<BaseIdentityUser>(identity);
         }
 
         public Task<bool> AnyAsync()

@@ -1,5 +1,6 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using NanoSoft.Identity;
 using NanoSoft.Wpf.EventArgs;
 using NanoSoft.Wpf.Resources;
 using System;
@@ -9,7 +10,7 @@ using System.Windows;
 
 namespace NanoSoft.Wpf.Services
 {
-    public abstract class AppServices<TApp> : IAppServices<TApp>
+    public abstract class AppServices<TApp, TUser> : IAppServices<TApp, TUser>
     {
         private readonly Window _window;
 
@@ -19,6 +20,7 @@ namespace NanoSoft.Wpf.Services
         }
 
         public abstract Task<TApp> InitializeAsync();
+        public abstract Task<TUser> GetUserAsync(IIdentityResult identityResult);
 
         public virtual void Alert(string message)
         {
@@ -60,13 +62,13 @@ namespace NanoSoft.Wpf.Services
 
         public abstract void Logout();
 
-        protected virtual StoredProperties<TUser, TSettings, TCompanyInfo> GetStoredProperties<TUser, TSettings, TCompanyInfo>
+        protected virtual StoredProperties<TAppUser, TSettings, TCompanyInfo> GetStoredProperties<TAppUser, TSettings, TCompanyInfo>
             (IDictionary dictionary)
-            where TUser : class
+            where TAppUser : class
             where TSettings : class
             where TCompanyInfo : class
         {
-            var storedUser = dictionary["user"] as TUser;
+            var storedUser = dictionary["user"] as TAppUser;
             var storedSettings = dictionary["settings"] as TSettings;
             var storedCompanyInfo = dictionary["info"] as TCompanyInfo;
             var expire = dictionary["expire"] as DateTime?;
@@ -78,7 +80,7 @@ namespace NanoSoft.Wpf.Services
                 || expire >= DateTime.Now))
                 return null;
 
-            return new StoredProperties<TUser, TSettings, TCompanyInfo>()
+            return new StoredProperties<TAppUser, TSettings, TCompanyInfo>()
             {
                 CompanyInfo = storedCompanyInfo,
                 Settings = storedSettings,
@@ -87,7 +89,7 @@ namespace NanoSoft.Wpf.Services
         }
 
 
-        protected virtual void StoreProperties<TUser, TSettings, TCompanyInfo>(StoredProperties<TUser, TSettings, TCompanyInfo> properties, IDictionary dictionary)
+        protected virtual void StoreProperties<TAppUser, TSettings, TCompanyInfo>(StoredProperties<TAppUser, TSettings, TCompanyInfo> properties, IDictionary dictionary)
         {
             dictionary["user"] = properties.User;
             dictionary["settings"] = properties.Settings;

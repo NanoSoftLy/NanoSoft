@@ -34,6 +34,13 @@ namespace NanoSoft.EntityFramework.Identity
             return Response.Success(result);
         }
 
+        public async Task<Response<BaseIdentityUser>> FindAsync(Guid id)
+        {
+            var identity = await _identityDbContext.Identities.FindAsync(id);
+
+            return Response.Success<BaseIdentityUser>(identity);
+        }
+
         public async Task<Response<TIdentityUser>> LoginAsync(LoginModel model)
         {
             if (!ModelState.IsValid(model))

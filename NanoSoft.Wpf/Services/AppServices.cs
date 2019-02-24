@@ -68,12 +68,14 @@ namespace NanoSoft.Wpf.Services
             where TSettings : class
             where TCompanyInfo : class
         {
+            var token = dictionary["token"] as string;
             var storedUser = dictionary["user"] as TAppUser;
             var storedSettings = dictionary["settings"] as TSettings;
-            var storedCompanyInfo = dictionary["info"] as TCompanyInfo;
+            var storedCompanyInfo = dictionary["companyInfo"] as TCompanyInfo;
             var expire = dictionary["expire"] as DateTime?;
 
-            if (storedUser == null
+            if (token == null
+                || storedUser == null
                 || storedSettings == null
                 || storedCompanyInfo == null
                 || (expire == null
@@ -84,19 +86,22 @@ namespace NanoSoft.Wpf.Services
             {
                 CompanyInfo = storedCompanyInfo,
                 Settings = storedSettings,
-                User = storedUser
+                User = storedUser,
+                Token = token
             };
         }
 
 
         protected virtual void StoreProperties<TAppUser, TSettings, TCompanyInfo>(StoredProperties<TAppUser, TSettings, TCompanyInfo> properties, IDictionary dictionary)
         {
+            dictionary["token"] = properties.Token;
             dictionary["user"] = properties.User;
             dictionary["settings"] = properties.Settings;
             dictionary["companyInfo"] = properties.CompanyInfo;
-            dictionary["expire"] = DateTime.Now.AddMinutes(5);
+            dictionary["expire"] = GetNewExpireDate();
         }
 
+        protected virtual DateTime GetNewExpireDate() => DateTime.Now.AddMinutes(5);
 
         public virtual void HandleException(Exception e)
         {

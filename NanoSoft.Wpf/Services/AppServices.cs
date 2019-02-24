@@ -79,7 +79,7 @@ namespace NanoSoft.Wpf.Services
                 || storedSettings == null
                 || storedCompanyInfo == null
                 || (expire == null
-                || expire >= DateTime.Now))
+                || expire < DateTime.Now))
                 return null;
 
             return new StoredProperties<TAppUser, TSettings, TCompanyInfo>()

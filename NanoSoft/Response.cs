@@ -24,6 +24,8 @@ namespace NanoSoft
 
         public static Response Fail(ResponseState state, string message) => new Response(state, message);
 
+        public static Response Fail(ResponseState state, string message, Dictionary<string, List<string>> errors) => new Response(state, message, errors);
+
         public static Response Fail(IValidator validator, ResponseState state = ResponseState.BadRequest)
             => new Response(validator.Errors, state);
 
@@ -49,6 +51,13 @@ namespace NanoSoft
         private Response(ResponseState state, string message)
         {
             Errors = new Dictionary<string, List<string>>();
+            _message = message;
+            _state = state;
+        }
+
+        private Response(ResponseState state, string message, Dictionary<string, List<string>> errors)
+        {
+            Errors = errors;
             _message = message;
             _state = state;
         }

@@ -1,7 +1,7 @@
 ﻿
+using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using System;
-using JetBrains.Annotations;
 
 namespace NanoSoft.Test
 {
@@ -28,17 +28,25 @@ namespace NanoSoft.Test
             BuildDb();
         }
 
-        private void BuildDb()
+        protected virtual void BuildDb()
         {
-            var context = NewDbContext();
-            context.Database.EnsureDeleted();
-            Migrate(context);
+            using (var context = NewDbContext())
+            {
+                context.Database.EnsureDeleted();
+                Migrate(context);
+            }
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             if (!InMemoryDb)
-                NewDbContext().Database.EnsureDeleted();
+            {
+                using (var context = NewDbContext())
+                {
+                    context.Database.EnsureDeleted();
+                }
+
+            }
         }
 
         public TDbContext NewDbContext()

@@ -1,20 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NanoSoft
 {
     public struct Paginated<TItem>
     {
-        public Paginated(List<TItem> data, int current, int size, int total)
+        [JsonConstructor]
+        public Paginated(List<TItem> data, int currentPage, int pageSize, int total)
         {
             Check.NotNull(data, nameof(data));
-            Check.ZeroOrMore(current, nameof(current));
-            Check.ZeroOrMore(size, nameof(size));
+            Check.ZeroOrMore(currentPage, nameof(currentPage));
+            Check.ZeroOrMore(pageSize, nameof(pageSize));
             Check.ZeroOrMore(total, nameof(total));
 
             Data = data;
-            CurrentPage = current;
-            PageSize = size;
+            CurrentPage = currentPage;
+            PageSize = pageSize;
             Total = total;
         }
 

@@ -25,6 +25,7 @@ namespace NanoSoft
         public int PageSize { get; }
         public int Total { get; }
 
+        [JsonIgnore]
         public int ShowingFrom
         {
             get
@@ -36,6 +37,7 @@ namespace NanoSoft
             }
         }
 
+        [JsonIgnore]
         public int ShowingTo
         {
             get
@@ -51,6 +53,7 @@ namespace NanoSoft
         }
 
 
+        [JsonIgnore]
         public int LastPage
         {
             get
@@ -64,6 +67,7 @@ namespace NanoSoft
             }
         }
 
+        [JsonIgnore]
         public IEnumerable<int> Pages
         {
             get

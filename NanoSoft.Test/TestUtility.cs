@@ -11,11 +11,11 @@ namespace NanoSoft.Test
         where TDbContext : DbContext
         where TIdentityDbContext : DbContext
     {
-        public const string ApplicationUrl = "http://localhost:4001";
-        public const string IdentityProviderUrl = "http://localhost:4000/connect/token";
+        public virtual string ApplicationUrl => "http://localhost:4001";
+        public virtual string IdentityProviderUrl => "http://localhost:4000/connect/token";
 
-        public const string WebTestsConnectionString = "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_WEB; Integrated security=true;";
-        public const string IdentityTestsConnectionString = "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_IDENTITY; Integrated security=true;";
+        public virtual string WebTestsConnectionString => "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_WEB; Integrated security=true;";
+        public virtual string IdentityTestsConnectionString => "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_IDENTITY; Integrated security=true;";
 
         private readonly bool _useIntegrationTesting;
 
@@ -74,7 +74,7 @@ namespace NanoSoft.Test
             var builder = new DbContextOptionsBuilder();
 
             builder = _useIntegrationTesting
-                ? RegisterProvider(builder, DbName)
+                ? RegisterProvider(builder, WebTestsConnectionString)
                 : builder.UseInMemoryDatabase($"NanoSoft_{DbName}");
 
             return Initialize(builder.Options);
@@ -85,7 +85,7 @@ namespace NanoSoft.Test
             var optionsBuilder = new DbContextOptionsBuilder();
 
             var options = _useIntegrationTesting
-                ? RegisterProvider(optionsBuilder, DbName)
+                ? RegisterProvider(optionsBuilder, IdentityTestsConnectionString)
                     .Options
                 : optionsBuilder.UseInMemoryDatabase($"Idp_{DbName}")
                     .Options;

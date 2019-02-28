@@ -3,7 +3,6 @@ using NanoSoft.Identity;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,8 +13,8 @@ namespace NanoSoft.AspNetCore
         public HttpIdentityService(HttpClient client)
         {
             Client = client;
-            Client.DefaultRequestHeaders.Authorization
-                = new AuthenticationHeaderValue("Secret", "ksnfi480r328ry932bf9ua");
+            //Client.DefaultRequestHeaders.Authorization
+            //    = new AuthenticationHeaderValue("Secret", "ksnfi480r328ry932bf9ua");
         }
 
         public ModelState ModelState { get; } = new ModelState();

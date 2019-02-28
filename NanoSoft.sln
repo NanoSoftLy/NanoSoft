@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NanoSoft.Test", "NanoSoft.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NanoSoft.Wpf", "NanoSoft.Wpf\NanoSoft.Wpf.csproj", "{1CF3E33C-8084-4672-B234-4B9E55ADDCB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NanoSoft.IdentityServer", "NanoSoft.IdentityServer\NanoSoft.IdentityServer.csproj", "{33F006CB-67B8-4A51-9443-1E0BB83A661F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NanoSoft.IdentityServer", "NanoSoft.IdentityServer\NanoSoft.IdentityServer.csproj", "{33F006CB-67B8-4A51-9443-1E0BB83A661F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NanoSoft.AspNetCore", "NanoSoft.AspNetCore\NanoSoft.AspNetCore.csproj", "{DFCE4A56-8D87-4D9F-AF26-784FCFB7F013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{33F006CB-67B8-4A51-9443-1E0BB83A661F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33F006CB-67B8-4A51-9443-1E0BB83A661F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33F006CB-67B8-4A51-9443-1E0BB83A661F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFCE4A56-8D87-4D9F-AF26-784FCFB7F013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFCE4A56-8D87-4D9F-AF26-784FCFB7F013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFCE4A56-8D87-4D9F-AF26-784FCFB7F013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFCE4A56-8D87-4D9F-AF26-784FCFB7F013}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

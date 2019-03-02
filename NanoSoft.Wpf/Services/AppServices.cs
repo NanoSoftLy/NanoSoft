@@ -1,6 +1,5 @@
 ﻿using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using NanoSoft.Identity;
 using NanoSoft.Wpf.EventArgs;
 using NanoSoft.Wpf.Resources;
 using System;
@@ -10,7 +9,7 @@ using System.Windows;
 
 namespace NanoSoft.Wpf.Services
 {
-    public abstract class AppServices<TApp, TUser> : IAppServices<TApp, TUser>
+    public abstract class AppServices<TApp, TIdentityResult, TUser> : IAppServices<TApp, TIdentityResult, TUser>
     {
         private readonly Window _window;
 
@@ -20,7 +19,7 @@ namespace NanoSoft.Wpf.Services
         }
 
         public abstract Task<TApp> InitializeAsync();
-        public abstract Task<TUser> GetUserAsync(IIdentityResult identityResult);
+        public abstract Task<TUser> GetUserAsync(TIdentityResult identityResult);
 
         public virtual void Alert(string message)
         {

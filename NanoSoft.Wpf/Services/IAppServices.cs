@@ -1,5 +1,4 @@
-﻿using NanoSoft.Identity;
-using NanoSoft.Wpf.EventArgs;
+﻿using NanoSoft.Wpf.EventArgs;
 using System;
 using System.Threading.Tasks;
 
@@ -19,8 +18,8 @@ namespace NanoSoft.Wpf.Services
         Task<TApp> InitializeAsync();
     }
 
-    public interface IAppServices<TApp, TUser> : IAppServices<TApp>
+    public interface IAppServices<TApp, TIdentityResult, TUser> : IAppServices<TApp>
     {
-        Task<TUser> GetUserAsync(IIdentityResult identityResult);
+        Task<TUser> GetUserAsync(TIdentityResult identityResult);
     }
 }

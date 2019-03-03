@@ -16,7 +16,7 @@ namespace NanoSoft
             Type = type;
         }
 
-        public TPermission Permission { get; private set; }
-        public Type Type { get; private set; }
+        public TPermission Permission { get; protected set; }
+        public Type Type { get; protected set; }
     }
 }

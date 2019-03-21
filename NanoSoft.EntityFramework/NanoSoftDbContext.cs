@@ -17,10 +17,7 @@ namespace NanoSoft.EntityFramework
 
         }
 
-
-        public Task<EntityValidationState> ValidatableSaveChangesAsync() => Task.Run(() => ValidatableSaveChanges());
-
-        public virtual EntityValidationState ValidatableSaveChanges()
+        protected EntityValidationState TrySaveChanges()
         {
             try
             {
@@ -34,5 +31,9 @@ namespace NanoSoft.EntityFramework
 
             return EntityValidationState.Valid;
         }
+
+        public Task<EntityValidationState> ValidatableSaveChangesAsync() => Task.Run(() => ValidatableSaveChanges());
+
+        public virtual EntityValidationState ValidatableSaveChanges() => TrySaveChanges();
     }
 }

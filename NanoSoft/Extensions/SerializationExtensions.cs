@@ -33,7 +33,7 @@ namespace NanoSoft.Extensions
             }
             catch
             {
-                return default(TObject);
+                return default;
             }
         }
     }

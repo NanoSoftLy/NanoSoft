@@ -47,7 +47,7 @@ namespace NanoSoft
 
         public async Task<bool> IsValidAsync(Func<TUserInfo, TDomain, bool> policy, Guid id)
         {
-            if (id == default(Guid))
+            if (id == default)
             {
                 _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
                 return false;
@@ -74,7 +74,7 @@ namespace NanoSoft
 
         public async Task<bool> IsValidAsync(Func<TUserInfo, bool> policy, Guid id)
         {
-            if (id == default(Guid))
+            if (id == default)
             {
                 _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
                 return false;
@@ -120,7 +120,7 @@ namespace NanoSoft
 
         public async Task<bool> IsValidAsync(object model, Func<TUserInfo, TDomain, bool> policy, Guid id)
         {
-            if (id == default(Guid))
+            if (id == default)
             {
                 _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
                 return false;
@@ -154,7 +154,7 @@ namespace NanoSoft
 
         public async Task<bool> IsValidAsync(object model, Func<TUserInfo, bool> policy, Guid id)
         {
-            if (id == default(Guid))
+            if (id == default)
             {
                 _response = NanoSoft.Response.Fail(ResponseState.BadRequest);
                 return false;

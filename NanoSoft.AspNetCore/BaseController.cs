@@ -21,11 +21,11 @@ namespace NanoSoft.AspNetCore
                 case ResponseState.Valid:
                     if (response.Model == null)
                         return createdResultIfValid
-                            ? (ActionResult)Created("SomeUrl", new ValidResult(response))
+                            ? (ActionResult)Created("/", new ValidResult(response))
                             : Ok(new ValidResult(response));
 
                     return createdResultIfValid
-                        ? (ActionResult<TModel>)Created("SomeUrl", new ValidResult<TModel>(response))
+                        ? (ActionResult<TModel>)Created("/", new ValidResult<TModel>(response))
                         : (ActionResult<TModel>)Ok(new ValidResult<TModel>(response));
 
                 case ResponseState.BadRequest:

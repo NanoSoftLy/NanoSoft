@@ -11,8 +11,8 @@ namespace NanoSoft.Test
         where TDbContext : DbContext
         where TIdentityDbContext : DbContext
     {
-        public virtual string ApplicationUrl => "http://localhost:4001";
-        public virtual string IdentityProviderUrl => "http://localhost:4000/connect/token";
+        public virtual string ApplicationUrl => "http://localhost:4001/";
+        public virtual string IdentityProviderUrl => "http://localhost:4000/connect/token/";
 
         public virtual string WebTestsConnectionString => "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_WEB; Integrated security=true;";
         public virtual string IdentityTestsConnectionString => "Server=.\\SQLEXPRESS; Database=NANOSOFT_TEST_IDENTITY; Integrated security=true;";

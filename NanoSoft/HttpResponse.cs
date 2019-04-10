@@ -11,6 +11,8 @@ namespace NanoSoft
     {
         public static async Task<HttpResponse<TModel>> GetResponseAsync(HttpResponseMessage message)
         {
+            Console.WriteLine(message);
+
             var contentString = await message.Content.ReadAsStringAsync();
 
             Console.WriteLine(contentString);

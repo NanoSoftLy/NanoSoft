@@ -9,19 +9,12 @@ using System.Threading.Tasks;
 namespace NanoSoft
 {
     [PublicAPI]
-    public abstract class Factory<TUnitOfWork, TObject>
-        where TUnitOfWork : IDefaultUnitOfWork
+    public abstract class Factory<TObject>
         where TObject : class
     {
         protected readonly Faker Faker = new Faker();
-        protected TUnitOfWork UnitOfWork { get; }
 
-        protected Factory(TUnitOfWork unitOfWork)
-        {
-            UnitOfWork = unitOfWork;
-        }
-
-        public TObject Make()
+        public virtual TObject Make()
         {
             try
             {
@@ -40,7 +33,7 @@ namespace NanoSoft
             }
         }
 
-        public List<TObject> MakeRange(int number)
+        public virtual List<TObject> MakeRange(int number)
         {
             var list = new List<TObject>();
             for (var i = 0; i < number; i++)
@@ -48,11 +41,24 @@ namespace NanoSoft
 
             return list;
         }
+    }
+
+    [PublicAPI]
+    public abstract class Factory<TUnitOfWork, TObject> : Factory<TObject>
+        where TUnitOfWork : IDefaultUnitOfWork
+        where TObject : class
+    {
+        protected TUnitOfWork UnitOfWork { get; }
+
+        protected Factory(TUnitOfWork unitOfWork)
+        {
+            UnitOfWork = unitOfWork;
+        }
 
         protected abstract Task SaveAsync(TObject obj);
         protected abstract Task SaveRangeAsync(IEnumerable<TObject> objects);
 
-        public async Task<TObject> CreateAsync()
+        public virtual async Task<TObject> CreateAsync()
         {
             TObject obj;
             using (UnitOfWork)
@@ -64,7 +70,7 @@ namespace NanoSoft
             return obj;
         }
 
-        public async Task<List<TObject>> CreateRangeAsync(int number)
+        public virtual async Task<List<TObject>> CreateRangeAsync(int number)
         {
             var list = MakeRange(number);
             using (UnitOfWork)
@@ -74,7 +80,6 @@ namespace NanoSoft
             }
             return list;
         }
-
 
         protected virtual Task CompleteAsync()
         {

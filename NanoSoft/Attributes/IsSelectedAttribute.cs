@@ -19,7 +19,7 @@ namespace NanoSoft.Attributes
                 return new ValidationResult(errorMessage);
 
             if (value is Guid guid)
-                return guid == default(Guid)
+                return guid == default
                     ? new ValidationResult(errorMessage)
                     : ValidationResult.Success;
 

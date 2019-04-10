@@ -12,7 +12,7 @@ namespace NanoSoft.EntityFramework
     public class SharedConfigurations<TEntity, TDbContext> : SharedConfigurations<TEntity>
         where TEntity : class
     {
-        public static void TrackEntity<T>(EntityTypeBuilder<T> builder)
+        public virtual void TrackEntity<T>(EntityTypeBuilder<T> builder)
             where T : class
         {
             builder.Property<DateTime?>(CreatedAt);

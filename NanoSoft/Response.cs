@@ -110,7 +110,7 @@ namespace NanoSoft
         public Response(Response response)
         {
             InnerResponse = response;
-            Model = default(TModel);
+            Model = default;
         }
 
         public Response(TModel model, Response response)

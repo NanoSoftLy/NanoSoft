@@ -15,7 +15,7 @@ namespace NanoSoft.EntityFramework
 
         public EntityValidationState ValidationState { get; private set; } = EntityValidationState.Valid;
 
-        public async Task CompleteAsync()
+        public virtual async Task CompleteAsync()
         {
             ValidationState = await _context.ValidatableSaveChangesAsync();
 
@@ -25,7 +25,7 @@ namespace NanoSoft.EntityFramework
             throw new Exception(ValidationState.Message);
         }
 
-        public async Task<bool> TryCompleteAsync()
+        public virtual async Task<bool> TryCompleteAsync()
         {
             try
             {
@@ -40,7 +40,7 @@ namespace NanoSoft.EntityFramework
             return ValidationState.IsValid;
         }
 
-        public Task CompleteAsync(bool enableValidation)
+        public virtual Task CompleteAsync(bool enableValidation)
         {
             if (enableValidation)
                 return CompleteAsync();
@@ -48,7 +48,7 @@ namespace NanoSoft.EntityFramework
             return _context.SaveChangesAsync();
         }
 
-        public async Task<bool> TryCompleteAsync(bool enableValidation)
+        public virtual async Task<bool> TryCompleteAsync(bool enableValidation)
         {
             if (enableValidation)
                 return await TryCompleteAsync();
@@ -57,7 +57,7 @@ namespace NanoSoft.EntityFramework
             return true;
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _context.Dispose();
         }

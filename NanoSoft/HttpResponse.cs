@@ -17,7 +17,8 @@ namespace NanoSoft
 
             Console.WriteLine(contentString);
 
-            var response = contentString.DeserializeOrDefault<HttpResponse<TModel>>();
+            var response = contentString.DeserializeOrDefault<HttpResponse<TModel>>()
+                     ?? new HttpResponse<TModel>();
 
             Console.WriteLine(response);
 

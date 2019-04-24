@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace NanoSoft
 {
-    public abstract class Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
+    public abstract class Request<TDomain, TUnitOfWork, TUserInfo>
         where TUnitOfWork : IDisposable
         where TDomain : class
         where TUserInfo : IUser

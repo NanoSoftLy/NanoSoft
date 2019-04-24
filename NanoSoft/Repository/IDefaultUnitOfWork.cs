@@ -1,6 +1,5 @@
 ﻿using JetBrains.Annotations;
 using System;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace NanoSoft.Repository
@@ -18,12 +17,5 @@ namespace NanoSoft.Repository
         Task CompleteAsync(bool enableValidation);
 
         Task<bool> TryCompleteAsync(bool enableValidation);
-    }
-
-    [PublicAPI]
-    public interface IDefaultUnitOfWork<TNotificationTypes> : IDefaultUnitOfWork
-    {
-        Task CompleteAsync([CanBeNull] Expression<Func<TNotificationTypes, bool>> expression);
-        Task<bool> TryCompleteAsync([CanBeNull] Expression<Func<TNotificationTypes, bool>> expression);
     }
 }

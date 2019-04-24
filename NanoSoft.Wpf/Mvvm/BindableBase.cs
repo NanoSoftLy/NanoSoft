@@ -39,7 +39,7 @@ namespace NanoSoft.Wpf.Mvvm
             private set => NotifyChange(ref _isloading, value);
         }
 
-        protected void LoadingStarted() => IsLoading = true;
-        protected void LoadingEnded() => IsLoading = false;
+        public void LoadingStarted() => IsLoading = true;
+        public void LoadingEnded() => IsLoading = false;
     }
 }

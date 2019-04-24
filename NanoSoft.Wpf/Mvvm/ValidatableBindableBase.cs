@@ -54,7 +54,7 @@ namespace NanoSoft.Wpf.Mvvm
         }
 
         public bool HasErrors => _errors.Count > 0 || _addedErrors.Count > 0;
-        protected bool HasFieldErrors => _errors.Count > 0;
+        public bool HasFieldErrors => _errors.Count > 0;
 
         protected override void SetProperty<T>(ref T member, T value, [CallerMemberName] string propertyName = null)
         {

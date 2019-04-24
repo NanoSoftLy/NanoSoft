@@ -20,7 +20,7 @@ namespace NanoSoft.Extensions
 
         [CanBeNull]
         public static string ToDateString([CanBeNull] this DateTime? date)
-            => date == null ? null : date.GetValueOrDefault().ToString("yyyy-MM-dd");
+            => date?.ToString("yyyy-MM-dd");
 
         public static bool IsValid(this DateTime date) => date.Year <= 2100 && date.Year >= 1900;
 

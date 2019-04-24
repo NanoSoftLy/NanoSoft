@@ -1,9 +1,9 @@
-﻿using System;
+﻿using JetBrains.Annotations;
+using NanoSoft.Attributes;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
-using JetBrains.Annotations;
-using NanoSoft.Attributes;
 
 namespace NanoSoft.Extensions
 {
@@ -31,7 +31,8 @@ namespace NanoSoft.Extensions
 
             return obj2;
         }
-        
+
+        [Obsolete]
         public static string DisplayName<TSource>(this TSource source, Expression<Func<TSource, object>> expression)
         {
             var name = expression?.ToExpressionTarget() ?? source.ToString();
@@ -46,6 +47,7 @@ namespace NanoSoft.Extensions
                        ?.Name;
         }
 
+        [Obsolete]
         public static int? DisplayOrder<TSource>(this TSource source, Expression<Func<TSource, object>> expression)
         {
             var name = expression?.ToExpressionTarget() ?? source.ToString();
@@ -70,11 +72,9 @@ namespace NanoSoft.Extensions
                 return property.GetCustomAttribute<ResourceBasedAttribute>()
                     ?.Display;
 
-            var d = type.GetRuntimeField(source.ToString());
-            var s = d?.GetCustomAttribute<ResourceBasedAttribute>();
-            var r = s?.Display;
-
-            return r;
+            return type.GetRuntimeField(source.ToString())
+                ?.GetCustomAttribute<ResourceBasedAttribute>()
+                ?.Display;
         }
 
         public static string GetDisplayName(this PropertyInfo info)

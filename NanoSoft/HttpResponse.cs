@@ -33,10 +33,12 @@ namespace NanoSoft
                     break;
 
                 case HttpStatusCode.Forbidden:
-                    return new HttpResponse<TModel>() { State = ResponseState.Forbidden };
+                    response.State = ResponseState.Forbidden;
+                    break;
 
                 case HttpStatusCode.Unauthorized:
-                    return new HttpResponse<TModel>() { State = ResponseState.Unauthorized };
+                    response.State = ResponseState.Unauthorized;
+                    break;
 
                 case HttpStatusCode.NotAcceptable:
                     response.State = ResponseState.Unacceptable;
@@ -45,10 +47,14 @@ namespace NanoSoft
                 case HttpStatusCode.NotFound:
                     response.State = ResponseState.NotFound;
                     break;
-                default:
-                    throw new HttpRequestException(message.ReasonPhrase);
-            }
 
+                default:
+                    return new HttpResponse<TModel>()
+                    {
+                        Message = message.ReasonPhrase,
+                        State = ResponseState.Unavailable
+                    };
+            }
 
             return response;
         }

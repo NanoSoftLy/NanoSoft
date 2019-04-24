@@ -6,7 +6,7 @@ namespace NanoSoft
         where TUnitOfWork : IDisposable
         where TDomain : class
         where TUserInfo : IUser
-        where TRequest : Request<TDomain, TUnitOfWork, TUserInfo, TSettings, TCompanyInfo>
+        where TRequest : Request<TDomain, TUnitOfWork, TUserInfo>
     {
         protected Business(TUnitOfWork unitOfWork, TUserInfo user, TIdentityService identityService, IValidator modelState, TSettings settings, TCompanyInfo companyInfo)
         {

@@ -50,11 +50,7 @@ namespace NanoSoft
                     break;
 
                 default:
-                    return new HttpResponse<TModel>()
-                    {
-                        Message = message.ReasonPhrase,
-                        State = ResponseState.Unavailable
-                    };
+                    throw new ServerErrorException(message.ReasonPhrase);
             }
 
             return response;

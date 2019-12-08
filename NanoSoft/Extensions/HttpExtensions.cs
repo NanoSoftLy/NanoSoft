@@ -1,8 +1,11 @@
 ﻿
 using JetBrains.Annotations;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -114,9 +117,30 @@ namespace NanoSoft.Extensions
         {
             var properties = from p in obj.GetType().GetProperties()
                              where p.GetValue(obj, null) != null
-                             select FirstCharacterToLower(p.Name) + "=" + HttpUtility.UrlEncode(p.GetValue(obj, null).ToString());
+                             select UrlEncode(p, obj);
 
             return string.Join("&", properties.ToArray());
+        }
+
+        public static string UrlEncode(PropertyInfo p, object obj)
+        {
+            var name = FirstCharacterToLower(p.Name);
+            var value = p.GetValue(obj, null);
+
+            if (value is DateTime dateTime)
+                return name + "=" + HttpUtility.UrlEncode(dateTime.ToDateString());
+
+            if (value is IEnumerable collection)
+            {
+                var results = new List<string>();
+
+                foreach (var item in collection)
+                    results.Add($"{name}={item.ToString()}");
+
+                return string.Join("&", results);
+            }
+
+            return name + "=" + HttpUtility.UrlEncode(value.ToString());
         }
 
         private static string FirstCharacterToLower(string str)

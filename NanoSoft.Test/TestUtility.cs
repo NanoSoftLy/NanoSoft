@@ -41,10 +41,10 @@ namespace NanoSoft.Test
         {
             _useIntegrationTesting = useIntegrationTesting;
             DbName = Guid.NewGuid().ToString();
-            ReBuildDb();
+            RebuildDb();
         }
 
-        protected virtual void ReBuildDb()
+        protected virtual void RebuildDb()
         {
             if (!_useIntegrationTesting)
                 return;

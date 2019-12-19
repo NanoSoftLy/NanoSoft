@@ -37,7 +37,7 @@ namespace NanoSoft.Wpf
                     return Language.Arabic;
 
                 default:
-                    return default(Language);
+                    return default;
             }
         }
 

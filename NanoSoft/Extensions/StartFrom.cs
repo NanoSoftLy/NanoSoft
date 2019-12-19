@@ -1,4 +1,4 @@
-﻿namespace NanoSoft.EntityFramework
+﻿namespace NanoSoft.Extensions
 {
     public enum StartFrom
     {

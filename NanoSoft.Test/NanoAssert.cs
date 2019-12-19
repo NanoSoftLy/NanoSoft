@@ -2,7 +2,7 @@
 
 namespace NanoSoft.Test
 {
-    public class Assert
+    public class NanoAssert
     {
         public static void Equal<T>(T expected, T actual1, T actual2)
         {

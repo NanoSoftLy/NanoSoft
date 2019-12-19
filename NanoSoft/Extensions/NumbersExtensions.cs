@@ -1,5 +1,5 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
+using System;
 
 namespace NanoSoft.Extensions
 {
@@ -39,7 +39,7 @@ namespace NanoSoft.Extensions
 
             return decimal.Parse((first + 1).ToString());
         }
-        
+
         public static string ToYearlyNumber(this long number, DateTime date)
             => date.Year + "-" + number;
         public static string ToYearlyNumber(this long number, [NotNull] string date)
@@ -52,15 +52,19 @@ namespace NanoSoft.Extensions
             long.TryParse(insideNumber.Trim(), out var newNumber);
             return newNumber;
         }
-        
-        public static string ToLyd(this decimal value)
+
+        public static string ToLyd(this decimal value, int decimalParts = 3)
         {
-            return value.ToString("##,##0.00");
+            var str = new string('0', decimalParts);
+
+            return value.ToString($"##,##0.{str}").Trim('.');
         }
 
-        public static string ToLyd(this decimal? value)
+        public static string ToLyd(this decimal? value, int decimalParts = 3)
         {
-            return value?.ToString("##,##0.00");
+            var str = new string('0', decimalParts);
+
+            return value?.ToString($"##,##0.{str}").Trim('.');
         }
     }
 }

@@ -21,6 +21,9 @@ namespace NanoSoft.Wpf.Services
         public abstract Task<TApp> InitializeAsync();
         public abstract Task<TUser> GetUserAsync(TIdentityResult identityResult);
 
+        public virtual void OnMainThread(Action action)
+            => Application.Current.Dispatcher.Invoke(action);
+
         public virtual void Alert(string message)
         {
             if (!(_window is MetroWindow metroWindow))

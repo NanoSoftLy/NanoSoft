@@ -126,6 +126,12 @@
   <data name="Arabic" xml:space="preserve">
     <value>عربي</value>
   </data>
+  <data name="AttachFile" xml:space="preserve">
+    <value>إرفاق ملف</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>إرفاق ملفات</value>
+  </data>
   <data name="BackToIndex" xml:space="preserve">
     <value>عودة للقائمة</value>
   </data>

@@ -264,4 +264,10 @@
   <data name="UsersActivities" xml:space="preserve">
     <value>Users Activities</value>
   </data>
+  <data name="AttachFile" xml:space="preserve">
+    <value>Attach File</value>
+  </data>
+  <data name="AttachFiles" xml:space="preserve">
+    <value>Attach Files</value>
+  </data>
 </root>

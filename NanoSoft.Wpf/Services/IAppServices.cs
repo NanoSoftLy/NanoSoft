@@ -6,6 +6,7 @@ namespace NanoSoft.Wpf.Services
 {
     public interface IAppServices
     {
+        void OnMainThread(Action action);
         void Alert(string message);
         Task<bool> ConfirmAsync(string message);
         void Logout();

@@ -1,5 +1,6 @@
 ﻿
 using JetBrains.Annotations;
+using NanoSoft.IO;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -112,6 +113,66 @@ namespace NanoSoft.Extensions
             return await HttpResponse<T>.GetResponseAsync(message);
         }
 
+        public static async Task<Response<T>> PostFilesAsync<T>(this HttpClient httpClient, string uri, [NotNull] object obj, ICollection<File> files)
+        {
+            var multipartForm = new MultipartFormDataContent();
+
+            foreach (var file in files)
+            {
+                multipartForm.Add(new StreamContent(file.Stream), "files", file.Path);
+            }
+
+            files.Clear();
+
+            var input = obj.Serialize();
+
+            multipartForm.Add(new StringContent(input, Encoding.UTF8, "application/json"));
+
+            HttpResponseMessage message;
+
+            try
+            {
+                message = await httpClient.PostAsync(uri, multipartForm);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Response.Fail(ResponseState.Unavailable);
+            }
+
+            return await HttpResponse<T>.GetResponseAsync(message);
+        }
+
+
+        public static async Task<Response<T>> PutFilesAsync<T>(this HttpClient httpClient, string uri, [NotNull] object obj, ICollection<File> files)
+        {
+            var multipartForm = new MultipartFormDataContent();
+
+            foreach (var file in files)
+            {
+                multipartForm.Add(new StreamContent(file.Stream), "files", file.Path);
+            }
+
+            files.Clear();
+
+            var input = obj.Serialize();
+
+            multipartForm.Add(new StringContent(input, Encoding.UTF8, "application/json"));
+
+            HttpResponseMessage message;
+
+            try
+            {
+                message = await httpClient.PutAsync(uri, multipartForm);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Response.Fail(ResponseState.Unavailable);
+            }
+
+            return await HttpResponse<T>.GetResponseAsync(message);
+        }
 
         public static string GetQueryString(this object obj)
         {

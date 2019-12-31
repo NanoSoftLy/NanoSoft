@@ -25,7 +25,7 @@ namespace NanoSoft.AspNetCore
                             : Ok(new ValidResult(response));
 
                     return createdResultIfValid
-                        ? (ActionResult<TModel>)Created("/", new ValidResult<TModel>(response))
+                        ? Created("/", new ValidResult<TModel>(response))
                         : (ActionResult<TModel>)Ok(new ValidResult<TModel>(response));
 
                 case ResponseState.BadRequest:

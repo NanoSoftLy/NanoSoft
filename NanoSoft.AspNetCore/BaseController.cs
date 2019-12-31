@@ -1,8 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NanoSoft.Extensions;
+using NanoSoft.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 
 namespace NanoSoft.AspNetCore
@@ -10,11 +14,45 @@ namespace NanoSoft.AspNetCore
     [Authorize]
     public class BaseController : ControllerBase
     {
-        public IActionResult GetResult(Response response, bool createdResultIfValid = false)
-            => GetResult<object>(response, createdResultIfValid).Result;
+        protected virtual TModel LoadModelWithFiles<TModel>(IEnumerable<IFormFile> files, Func<TModel, ICollection<File>> targetProperty)
+        {
+            Request.Form.TryGetValue("", out var values);
+
+            var model = values.ToString().Deserialize<TModel>();
+            var property = targetProperty(model);
+
+            foreach (var file in files)
+            {
+                property.Add(new File()
+                {
+                    Path = file.FileName,
+                    Stream = file.OpenReadStream()
+                });
+            }
+
+            return model;
+        }
 
 
-        public ActionResult<TModel> GetResult<TModel>(Response<TModel> response, bool createdResultIfValid = false)
+        protected virtual TModel LoadModelWithFile<TModel>(IFormFile file, Expression<Func<TModel, File>> target)
+        {
+            Request.Form.TryGetValue("", out var values);
+
+            var model = values.ToString().Deserialize<TModel>();
+
+            model.SetValue(target, new File()
+            {
+                Path = file.FileName,
+                Stream = file.OpenReadStream()
+            });
+
+            return model;
+        }
+
+        protected virtual IActionResult GetResult(Response response, bool createdResultIfValid = false)
+                => GetResult<object>(response, createdResultIfValid).Result;
+
+        protected virtual ActionResult<TModel> GetResult<TModel>(Response<TModel> response, bool createdResultIfValid = false)
         {
             switch (response.State)
             {

@@ -6,30 +6,30 @@ namespace NanoSoft.IO
 {
     public class File
     {
-        private string _folderId;
-        public string FolderId
+        private string _directory;
+        public string Directory
         {
-            get => string.IsNullOrWhiteSpace(_folderId) ? "Default" : _folderId;
-            set => _folderId = value;
+            get => string.IsNullOrWhiteSpace(_directory) ? "Default" : _directory;
+            set => _directory = value;
         }
         public Stream Stream { get; set; }
         public string Path { get; set; }
         public string Extension => Path.Split('.').LastOrDefault()?.ToLower();
 
-        private string _newFilePath;
-        public string OutputPath
+        private string _newFileName;
+        public string NewFileName
         {
             get
             {
-                if (_newFilePath != null)
-                    return _newFilePath;
+                if (_newFileName != null)
+                    return _newFileName;
 
-                var newFile = $"ns-{Guid.NewGuid()}{System.IO.Path.GetExtension(Path)}";
+                _newFileName = $"ns-{Guid.NewGuid()}{System.IO.Path.GetExtension(Path)}";
 
-                _newFilePath = FolderId + "/" + newFile;
-
-                return _newFilePath;
+                return _newFileName;
             }
         }
+
+        public string NewFilePath => Directory + "/" + NewFileName;
     }
 }

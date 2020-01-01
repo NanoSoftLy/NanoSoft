@@ -71,9 +71,9 @@ namespace NanoSoft.IO
 
         protected virtual void SaveFile(File file)
         {
-            Directory.CreateDirectory(Path.Combine(SavePath, file.FolderId));
+            Directory.CreateDirectory(Path.Combine(SavePath, file.Directory));
 
-            var newPath = Path.Combine(SavePath, file.FolderId, file.OutputPath);
+            var newPath = Path.Combine(SavePath, file.Directory, file.NewFileName);
 
             using (var fileStream = new FileStream(newPath, FileMode.Create))
             {
